@@ -1,6 +1,8 @@
-function Map() {
+function Map(game) {
+    this.game = game;
+
     this.width = 40;
-    this.height = 100;
+    this.height = 40;
     this.cellSize = 10;
 
     this.currentBrick = null;
@@ -8,6 +10,8 @@ function Map() {
 
     this.cells = [];
 
+    this.colors = ['#eaeaea','#ff6600','#eec900','#0000ff',
+        '#cc00ff','#00ff00','#66ccff','#ff0000'];
     this.shapes = [
         // 0 = none
         [],
@@ -64,13 +68,25 @@ Map.prototype = {
 
     canGo: function(brick, x, y) {
         var i, j;
+        var shape = brick.getShape();
         for (i = 0; i < 4; ++i) {
             for (j = 0; j < 4; ++j) {
-                //~ alert(i + ', ' + j);
-                //~ alert(this.grid[y + j][x + i]);
-                //~ alert(brick.shape[j][i]);
-                if (brick.shape[j][i] && this.grid[y + j][x + i]) {
-                    return false;
+                if (shape[i][j] == 1) {
+                    var cellx = i + x;
+                    var celly = j + y;
+                    // tester si la forme sort des frontières
+                    if (cellx >= this.width || cellx < 0) {
+                        return false;
+                    }
+                    else if (celly >= this.height) {
+                        return false;
+                    }
+                    // tester si la forme est sur une cellule existante
+                    for (var k = 0, nb = this.cells.length; k < nb; k++) {
+                        if (cellx == this.cells[k].x && celly == this.cells[k].y) {
+                            return false;
+                        }
+                    }
                 }
             }
         }
@@ -80,7 +96,27 @@ Map.prototype = {
     newBrick: function() {
         var r = 1 + Math.random() * 7;
         var shapeId = parseInt(r > 7 ? 7 : r, 10);
-        var brick = new Brick(this, this.shapes[shapeId]);
+        var brick = new Brick(this, this.shapes[shapeId], this.colors[shapeId]);
         return brick;
+    },
+
+    nextBrick: function() {
+        for (var i = 0, nb = this.currentBrick.cells.length; i < nb; i++) {
+            this.currentBrick.cells[i].x += this.currentBrick.x;
+            this.currentBrick.cells[i].y += this.currentBrick.y;
+
+            this.cells.push(this.currentBrick.cells[i]);
+        }
+        var newBrick = this.newBrick();
+
+        // Is the game lost?
+        if (!this.canGo(newBrick, newBrick.x, newBrick.y)) {
+            this.game.gameOver();
+        }
+        else {
+            this.currentBrick = newBrick;
+        }
+
+        return this;
     }
 }
