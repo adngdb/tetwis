@@ -1,8 +1,8 @@
 function Map(game) {
     this.game = game;
 
-    this.width = 40;
-    this.height = 40;
+    this.width = 10;
+    this.height = 20;
     this.cellSize = 10;
 
     this.currentBrick = null;
@@ -46,19 +46,12 @@ function Map(game) {
 Map.prototype = {
     init: function() {
         // Init the grid
-        //~ for (var x = 0; x < this.width + 2; x++) {
-            //~ this.grid[x] = [];
-            //~ for (var y = 0; y < this.height; y++) {
-                //~ var i = 0;
-                //~ if (x == 0 || x == this.width + 1)
-                    //~ i = 1;
-                //~ this.grid[x][y] = i;
-            //~ }
-        //~ }
-        //~ this.grid[this.height] = [];
-        //~ for (var x = 0; x <= this.width + 2; x++) {
-            //~ this.grid[this.height][x] = 1;
-        //~ }
+        for (var x = 0; x < this.width; x++) {
+            this.grid[x] = [];
+            for (var y = 0; y < this.height; y++) {
+                this.grid[x][y] = null;
+            }
+        }
 
         // First brick
         this.currentBrick = this.newBrick();
@@ -106,6 +99,7 @@ Map.prototype = {
             this.currentBrick.cells[i].y += this.currentBrick.y;
 
             this.cells.push(this.currentBrick.cells[i]);
+            this.grid[this.currentBrick.cells[i].x][this.currentBrick.cells[i].y] = this.currentBrick.cells[i];
         }
         var newBrick = this.newBrick();
 
@@ -118,5 +112,35 @@ Map.prototype = {
         }
 
         return this;
+    },
+
+    checkLines: function() {
+        var i, j;
+        for (j = 0; j < this.height; j++) {
+            for (i = 0; i < this.width; i++) {
+                if (this.grid[i][j] == null) {
+                    break;
+                }
+            }
+            if (i == this.width) {
+                // complete line found
+                // remove cells of the line
+                for (var k = j; k > 0; k--) {
+                    for (i = 0; i < this.width; i++) {
+                        this.grid[i][k] = this.grid[i][k-1];
+                    }
+                }
+                for (var l = 0, nb = this.cells.length; l < nb; l++) {
+                    if (this.cells[l].y == j) {
+                        this.cells.splice(l, 1);
+                        --l;
+                        --nb;
+                    }
+                    else if (this.cells[l].y < j) {
+                        ++this.cells[l].y;
+                    }
+                }
+            }
+        }
     }
 }

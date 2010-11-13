@@ -1,6 +1,6 @@
 function Events(game) {
     this.game = game;
-    this.bound = $.browser == 'msie' ? '#tetris' : window;
+    this.bound = $.browser == 'msie' ? '#map' : window;
 }
 
 Events.prototype = {

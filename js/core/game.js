@@ -8,7 +8,7 @@ function Game() {
     this.score = 0;
     this.level = 0;
 
-    this.time = 50;
+    this.time = 500;
 }
 
 Game.prototype = {
@@ -42,6 +42,7 @@ Game.prototype = {
 
     run: function() {
         this.move().display();
+        this.map.checkLines();
         return this;
     },
 

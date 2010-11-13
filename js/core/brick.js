@@ -4,8 +4,8 @@ function Brick(map, shape, color) {
     this.shape = shape;
     this.currentShape = 0;
 
-    this.x = 4;
-    this.y = 4;
+    this.x = 0;
+    this.y = 0;
     this.color = color;
 
     this.cells = [];
@@ -62,6 +62,7 @@ Brick.prototype = {
 
     touchdown: function() {
         this.map.nextBrick();
+        return this;
     },
 
     getShape: function() {
