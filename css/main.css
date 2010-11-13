@@ -9,7 +9,7 @@
     position: relative;
 }
     #map .cell {
-        border: 1px solid red;
+        border: 1px solid #fff;
         width: 9px;
         height: 9px;
         position: absolute;
