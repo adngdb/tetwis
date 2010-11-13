@@ -1,0 +1,16 @@
+/***********************************************************************
+ * Main.css
+ **********************************************************************/
+
+#map {
+    border: 1px solid black;
+    width: 400px;
+    height: 400px;
+    position: relative;
+}
+    #map .cell {
+        border: 1px solid red;
+        width: 9px;
+        height: 9px;
+        position: absolute;
+    }
