@@ -2,6 +2,7 @@ function Game() {
     this.initialized = false;
 
     this.events = null;
+    this.socket = null;
 
     this.map = null;
 
@@ -9,9 +10,16 @@ function Game() {
     this.level = 0;
 
     this.time = 500;
+
+    this.id = null;
 }
 
 Game.prototype = {
+
+    launch: function() {
+        this.socket = new Socket(this);
+        this.socket.init();
+    }
 
     init: function() {
         if (this.initialized == false)
@@ -77,4 +85,8 @@ Game.prototype = {
         this.stop();
         return this;
     }
+}
+
+function log(msg) {
+    $('#log').append('<li>' + msg + '</li>');
 }
