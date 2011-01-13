@@ -1,8 +1,12 @@
+/**
+ * Map class
+ * Manages the map, meaning all the cells and the current brick
+ */
 function Map(game) {
     this.game = game;
 
-    this.width = 10;
-    this.height = 20;
+    this.width = 40;
+    this.height = 40;
     this.cellSize = 10;
 
     this.currentBrick = null;
@@ -44,6 +48,10 @@ function Map(game) {
 }
 
 Map.prototype = {
+
+    /**
+     * Initialize the map
+     */
     init: function() {
         // Init the grid
         for (var x = 0; x < this.width; x++) {
@@ -59,6 +67,9 @@ Map.prototype = {
         return this;
     },
 
+    /**
+     * Tell wether a brick can go to a given position or not
+     */
     canGo: function(brick, x, y) {
         var i, j;
         var shape = brick.getShape();
@@ -86,6 +97,9 @@ Map.prototype = {
         return true;
     },
 
+    /**
+     * Generate a new random brick
+     */
     newBrick: function() {
         var r = 1 + Math.random() * 7;
         var shapeId = parseInt(r > 7 ? 7 : r, 10);
@@ -93,6 +107,9 @@ Map.prototype = {
         return brick;
     },
 
+    /**
+     * Create and assign the next brick
+     */
     nextBrick: function() {
         for (var i = 0, nb = this.currentBrick.cells.length; i < nb; i++) {
             this.currentBrick.cells[i].x += this.currentBrick.x;
@@ -114,8 +131,11 @@ Map.prototype = {
         return this;
     },
 
+    /**
+     * Check wether there are complete lines, and delete them if so
+     */
     checkLines: function() {
-        var i, j;
+        var i, j, res = false;
         for (j = 0; j < this.height; j++) {
             for (i = 0; i < this.width; i++) {
                 if (this.grid[i][j] == null) {
@@ -124,6 +144,7 @@ Map.prototype = {
             }
             if (i == this.width) {
                 // complete line found
+                res = true;
                 // remove cells of the line
                 for (var k = j; k > 0; k--) {
                     for (i = 0; i < this.width; i++) {
@@ -142,5 +163,6 @@ Map.prototype = {
                 }
             }
         }
+        return res;
     }
 }

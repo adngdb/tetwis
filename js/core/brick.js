@@ -1,3 +1,7 @@
+/**
+ * Class Brick
+ * Represents a brick that can be moved
+ */
 function Brick(map, shape, color) {
     this.map = map;
 
@@ -14,6 +18,10 @@ function Brick(map, shape, color) {
 }
 
 Brick.prototype = {
+
+    /**
+     * Initialize the brick
+     */
     init: function() {
         for (var i = 0; i < 4; i++) {
             for (var j = 0; j < 4; j++) {
@@ -25,11 +33,17 @@ Brick.prototype = {
         return this;
     },
 
+    /**
+     * Reset the brick
+     */
     reset: function() {
         this.cells = [];
         return this;
     },
 
+    /**
+     * Move the brick to the left if possible
+     */
     moveLeft: function() {
         if (this.map.canGo(this, this.x - 1, this.y)) {
             --this.x;
@@ -37,6 +51,9 @@ Brick.prototype = {
         return this;
     },
 
+    /**
+     * Move the brick to the right if possible
+     */
     moveRight: function() {
         if (this.map.canGo(this, this.x + 1, this.y)) {
             ++this.x;
@@ -44,6 +61,9 @@ Brick.prototype = {
         return this;
     },
 
+    /**
+     * Move the brick down if possible
+     */
     moveBottom: function() {
         if (this.map.canGo(this, this.x, this.y + 1)) {
             ++this.y;
@@ -55,16 +75,29 @@ Brick.prototype = {
         return this;
     },
 
+    /**
+     * Change the shape of the brick
+     */
     changeShape: function() {
+        var oldShape = this.currentShape;
         this.currentShape = ( this.currentShape == this.shape.length - 1 ) ? 0 : this.currentShape + 1;
+        if (!this.map.canGo(this, this.x, this.y)) {
+            this.currentShape = oldShape;
+        }
         return this.reset().init();
     },
 
+    /**
+     * The brick cannot go down anymore
+     */
     touchdown: function() {
         this.map.nextBrick();
         return this;
     },
 
+    /**
+     * Return the current shape of the brick
+     */
     getShape: function() {
         return this.shape[this.currentShape];
     }

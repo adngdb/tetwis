@@ -1,3 +1,7 @@
+/**
+ * Game class
+ * Launches, handles and displays the current game
+ */
 function Game() {
     this.initialized = false;
 
@@ -13,6 +17,9 @@ function Game() {
 
 Game.prototype = {
 
+    /**
+     * Initialize the Game object
+     */
     init: function() {
         if (this.initialized == false)
         {
@@ -27,6 +34,9 @@ Game.prototype = {
         return this;
     },
 
+    /**
+     * Start a game, launch the main loop
+     */
     start: function() {
         var instance = this;
         $('#map').everyTime(instance.time, function() {
@@ -35,22 +45,35 @@ Game.prototype = {
         return this;
     },
 
+    /**
+     * Stop the current game
+     */
     stop: function() {
         $('#map').stopTime();
         return this;
     },
 
+    /**
+     * Do all the actions of an iteration of the main loop
+     */
     run: function() {
         this.move().display();
-        this.map.checkLines();
+        if (this.map.checkLines())
+            this.display();
         return this;
     },
 
+    /**
+     * Move the current brick
+     */
     move: function() {
         this.map.currentBrick.moveBottom();
         return this;
     },
 
+    /**
+     * Display the game
+     */
     display: function() {
         var mapElt = $('#map');
         var id = 0;
@@ -72,6 +95,9 @@ Game.prototype = {
         return this;
     },
 
+    /**
+     * The game is lost, tell so to the player and stop it
+     */
     gameOver: function() {
         alert('Game OVER!');
         this.stop();
