@@ -13,9 +13,9 @@ Events.prototype = {
         var instance = this;
         $(this.bound).keypress(function(e) {
             switch(e.charCode || e.keyCode) {
-                case 74: case 106: instance.game.map.currentBrick.moveLeft(); break; // J
-                case 76: case 108: instance.game.map.currentBrick.moveRight(); break; // L
-                case 73: case 105: instance.game.map.currentBrick.changeShape(); break; // I
+                case 74: case 106: instance.game.moveLeft(); break; // J
+                case 76: case 108: instance.game.moveRight(); break; // L
+                case 73: case 105: instance.game.changeShape(); break; // I
             }
             return false;
         });

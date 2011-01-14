@@ -2,49 +2,21 @@
  * Map class
  * Manages the map, meaning all the cells and the current brick
  */
-function Map(game) {
+function Map(game, data) {
     this.game = game;
 
-    this.width = 40;
-    this.height = 40;
-    this.cellSize = 10;
+    this.width = data.width;
+    this.height = data.height;
+    this.cellSize = data.cellSize;
 
-    this.currentBrick = null;
-    this.grid = [];
+    this.grid = data.grid;
 
-    this.cells = [];
+    this.cells = data.cells;
 
-    this.colors = ['#eaeaea','#ff6600','#eec900','#0000ff',
-        '#cc00ff','#00ff00','#66ccff','#ff0000'];
-    this.shapes = [
-        // 0 = none
-        [],
-        // 1 = I
-        [[[0,0,0,0],[1,1,1,1],[0,0,0,0],[0,0,0,0]],
-         [[0,1,0,0],[0,1,0,0],[0,1,0,0],[0,1,0,0]]],
-        // 2 = T
-        [[[0,0,0,0],[1,1,1,0],[0,1,0,0],[0,0,0,0]],
-         [[0,1,0,0],[1,1,0,0],[0,1,0,0],[0,0,0,0]],
-         [[0,1,0,0],[1,1,1,0],[0,0,0,0],[0,0,0,0]],
-         [[0,1,0,0],[0,1,1,0],[0,1,0,0],[0,0,0,0]]],
-        // 4 = L
-        [[[0,0,0,0],[1,1,1,0],[1,0,0,0],[0,0,0,0]],
-         [[1,1,0,0],[0,1,0,0],[0,1,0,0],[0,0,0,0]],
-         [[0,0,1,0],[1,1,1,0],[0,0,0,0],[0,0,0,0]],
-         [[0,1,0,0],[0,1,0,0],[0,1,1,0],[0,0,0,0]]],
-        // 5 = J
-        [[[1,0,0,0],[1,1,1,0],[0,0,0,0],[0,0,0,0]],
-         [[0,1,1,0],[0,1,0,0],[0,1,0,0],[0,0,0,0]],
-         [[0,0,0,0],[1,1,1,0],[0,0,1,0],[0,0,0,0]],
-         [[0,1,0,0],[0,1,0,0],[1,1,0,0],[0,0,0,0]]],
-        // 6 = Z
-        [[[0,0,0,0],[1,1,0,0],[0,1,1,0],[0,0,0,0]],
-         [[0,0,1,0],[0,1,1,0],[0,1,0,0],[0,0,0,0]]],
-        // 7 = S
-        [[[0,0,0,0],[0,1,1,0],[1,1,0,0],[0,0,0,0]],
-         [[0,1,0,0],[0,1,1,0],[0,0,1,0],[0,0,0,0]]],
-        // 8 = O
-        [[[0,1,1,0],[0,1,1,0],[0,0,0,0],[0,0,0,0]]]];
+    this.colors = data.colors;
+    this.shapes = data.shapes;
+
+    this.bricks = data.bricks;
 }
 
 Map.prototype = {
@@ -53,18 +25,23 @@ Map.prototype = {
      * Initialize the map
      */
     init: function() {
-        // Init the grid
-        for (var x = 0; x < this.width; x++) {
-            this.grid[x] = [];
-            for (var y = 0; y < this.height; y++) {
-                this.grid[x][y] = null;
-            }
-        }
-
         // First brick
-        this.currentBrick = this.newBrick();
+        //this.currentBrick = this.newBrick();
 
         return this;
+    },
+
+    update: function(data) {
+        this.cells = data.cells;
+        this.bricks = data.bricks;
+        this.updateBricks();
+    },
+
+    updateBricks: function() {
+        for (var i = 0; i < this.bricks.length; i++) {
+            var brick = this.bricks[i];
+            this.bricks[i] = new Brick(brick);
+        }
     },
 
     /**

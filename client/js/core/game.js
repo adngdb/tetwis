@@ -7,6 +7,7 @@ function Game() {
 
     this.events = null;
     this.socket = null;
+    this.mp = null;
 
     this.map = null;
 
@@ -21,19 +22,22 @@ function Game() {
 Game.prototype = {
 
     launch: function() {
-        this.socket = new Socket(this);
+        log("Game: launch");
+        this.mp = new MessageParser(this);
+
+        this.socket = new Socket(this, this.mp);
         this.socket.init();
-    }
+
+        return this;
+    },
 
     /**
      * Initialize the Game object
      */
     init: function() {
+        log("Game: init");
         if (this.initialized == false)
         {
-            this.map = new Map(this);
-            this.map.init();
-
             this.events = new Events(this);
             this.events.bindAll();
 
@@ -42,41 +46,20 @@ Game.prototype = {
         return this;
     },
 
-    /**
-     * Start a game, launch the main loop
-     */
-    start: function() {
-        var instance = this;
-        $('#map').everyTime(instance.time, function() {
-            instance.run();
-        });
+    initMap: function(data) {
+        this.map = new Map(this, data);
+        this.map.init();
+
+        if (!this.initialized) {
+            this.init();
+        }
+
         return this;
     },
 
-    /**
-     * Stop the current game
-     */
-    stop: function() {
-        $('#map').stopTime();
-        return this;
-    },
-
-    /**
-     * Do all the actions of an iteration of the main loop
-     */
-    run: function() {
-        this.move().display();
-        if (this.map.checkLines())
-            this.display();
-        return this;
-    },
-
-    /**
-     * Move the current brick
-     */
-    move: function() {
-        this.map.currentBrick.moveBottom();
-        return this;
+    updateMap: function(data) {
+        this.map.update(data);
+        this.display();
     },
 
     /**
@@ -95,9 +78,12 @@ Game.prototype = {
             mapElt.append('<div class="cell" style="top: '+ cell.y * this.map.cellSize +'px; left: '+ cell.x * this.map.cellSize +'px; background-color: '+ cell.color +';"></div>');
         }
 
-        for (var i = 0, size = this.map.currentBrick.cells.length; i < size; i++) {
-            var cell = this.map.currentBrick.cells[i];
-            mapElt.append('<div class="cell" style="top: '+ (this.map.currentBrick.y + cell.y) * this.map.cellSize +'px; left: '+ (this.map.currentBrick.x + cell.x) * this.map.cellSize +'px; background-color: '+ cell.color +';"></div>');
+        for (var k = 0, nb = this.map.bricks.length; k < nb; k++) {
+            var currentBrick = this.map.bricks[k];
+            for (var i = 0, size = currentBrick.cells.length; i < size; i++) {
+                var cell = currentBrick.cells[i];
+                mapElt.append('<div class="cell" style="top: '+ (currentBrick.y + cell.y) * this.map.cellSize +'px; left: '+ (currentBrick.x + cell.x) * this.map.cellSize +'px; background-color: '+ cell.color +';"></div>');
+            }
         }
 
         return this;
@@ -110,7 +96,23 @@ Game.prototype = {
         alert('Game OVER!');
         this.stop();
         return this;
-    }
+    },
+
+    send: function(msg) {
+        this.socket.send(msg);
+    },
+
+    moveLeft: function() {
+        this.send( this.mp.getMoveLeft() );
+    },
+
+    moveRight: function() {
+        this.send( this.mp.getMoveRight() );
+    },
+
+    changeShape: function() {
+        this.send( this.mp.getChangeShape() );
+    },
 }
 
 function log(msg) {

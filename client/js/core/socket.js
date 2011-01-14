@@ -1,10 +1,10 @@
-function Socket(game) {
+function Socket(game, mp) {
     this.game = game;
-    this.mp = null; // MessageParser
+    this.mp = mp; // MessageParser
 
     this._ws;
 
-    this.host = "localhost";
+    this.host = "192.168.1.86"; //"localhost";
     this.port = "3401";
     this.protocole = "ws";
 }
@@ -14,22 +14,28 @@ Socket.prototype = {
         var serverURI = this.protocole + "://" + this.host + ":" + this.port;
 
         this._ws = new WebSocket(serverURI);
-        this._ws.onopen = this.onOpen();
-        this._ws.onmessage = this.onMessage();
-        this._ws.onclose = this.onClose();
+
+        var instance = this;
+
+        this._ws.onopen = function() {
+            log("Socket: onOpen");
+            instance.game.init();
+        };
+
+        this._ws.onmessage = function(msg) {
+            log("Socket: onMessage = " + msg.data);
+            instance.mp.parse(msg.data);
+        };
+
+        this._ws.onclose = function() {
+            log("Socket: onClose");
+            alert("Connection lost!");
+            instance.game.stop();
+        };
 
         this.mp = new MessageParser(this.game);
-    },
 
-    onOpen: function() {
-        this.game.init();
-    },
-
-    onMessage: function(data) {
-    },
-
-    onClose: function() {
-        this.game.stop();
+        log("Socket initialized");
     },
 
     send: function(msg) {

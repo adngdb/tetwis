@@ -2,103 +2,18 @@
  * Class Brick
  * Represents a brick that can be moved
  */
-function Brick(map, shape, color) {
-    this.map = map;
+function Brick(data) {
+    this.x = data.x;
+    this.y = data.y;
+    this.color = data.color;
 
-    this.shape = shape;
-    this.currentShape = 0;
+    this.cells = data.cells;
 
-    this.x = 0;
-    this.y = 0;
-    this.color = color;
-
-    this.cells = [];
-
-    this.init();
+    for (var i = 0; i < this.cells.length; i++) {
+        var cell = this.cells[i];
+        this.cells[i] = new Cell(cell);
+    }
 }
 
 Brick.prototype = {
-
-    /**
-     * Initialize the brick
-     */
-    init: function() {
-        for (var i = 0; i < 4; i++) {
-            for (var j = 0; j < 4; j++) {
-                if (this.shape[this.currentShape][i][j] == 1) {
-                    this.cells.push(new Cell(i, j, this.color));
-                }
-            }
-        }
-        return this;
-    },
-
-    /**
-     * Reset the brick
-     */
-    reset: function() {
-        this.cells = [];
-        return this;
-    },
-
-    /**
-     * Move the brick to the left if possible
-     */
-    moveLeft: function() {
-        if (this.map.canGo(this, this.x - 1, this.y)) {
-            --this.x;
-        }
-        return this;
-    },
-
-    /**
-     * Move the brick to the right if possible
-     */
-    moveRight: function() {
-        if (this.map.canGo(this, this.x + 1, this.y)) {
-            ++this.x;
-        }
-        return this;
-    },
-
-    /**
-     * Move the brick down if possible
-     */
-    moveBottom: function() {
-        if (this.map.canGo(this, this.x, this.y + 1)) {
-            ++this.y;
-        }
-        else {
-            // on ne peut plus descendre, on est donc au plus bas
-            this.touchdown();
-        }
-        return this;
-    },
-
-    /**
-     * Change the shape of the brick
-     */
-    changeShape: function() {
-        var oldShape = this.currentShape;
-        this.currentShape = ( this.currentShape == this.shape.length - 1 ) ? 0 : this.currentShape + 1;
-        if (!this.map.canGo(this, this.x, this.y)) {
-            this.currentShape = oldShape;
-        }
-        return this.reset().init();
-    },
-
-    /**
-     * The brick cannot go down anymore
-     */
-    touchdown: function() {
-        this.map.nextBrick();
-        return this;
-    },
-
-    /**
-     * Return the current shape of the brick
-     */
-    getShape: function() {
-        return this.shape[this.currentShape];
-    }
 }
