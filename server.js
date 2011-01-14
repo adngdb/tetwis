@@ -1,12 +1,12 @@
 var sys     = require("sys"),
     ws      = require("websocket-server"),
-    game    = require("./lib/game.js"),
-    client  = require("./lib/client.js"),
-    mp      = require("./lib/message-parser.js");
+    m_game    = require("./lib/game.js"),
+    m_client  = require("./lib/client.js"),
+    m_mp      = require("./lib/message-parser.js");
 
 
-var game = new game.Game().init().start();
-var parser = new mp.MessageParser(this.game);
+var game = new m_game.Game().init().start();
+var parser = new m_mp.MessageParser(game);
 
 var port = 3401;
 var server = ws.createServer();
@@ -14,7 +14,7 @@ server.listen(port);
 
 server.addListener("connection", function(conn)
 {
-    new client.Client(conn, game, server).init();
+    new m_client.Client(conn, game, server, parser).init();
 });
 
 sys.log("Server created. Listening on port " + port + ". ");
