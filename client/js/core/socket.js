@@ -4,7 +4,9 @@ function Socket(game, mp) {
 
     this._ws;
 
-    this.host = "192.168.1.86"; //"localhost";
+    //~ this.host = "192.168.1.86";
+    //~ this.host = "134.214.241.255";
+    this.host = "localhost";
     this.port = "3401";
     this.protocole = "ws";
 }
