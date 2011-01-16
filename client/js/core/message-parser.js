@@ -10,7 +10,7 @@ MessageParser.prototype = {
 
         if (data.method == "get") {
             if (data.object == "map") {
-                this.game.initMap(data.data);
+                this.game.init(data.data);
             }
         }
         else if (data.method == "update") {
