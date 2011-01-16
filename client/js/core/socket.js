@@ -21,7 +21,7 @@ Socket.prototype = {
 
         this._ws.onopen = function() {
             log("Socket: onOpen");
-            instance.game.init();
+            //instance.game.init();
         };
 
         this._ws.onmessage = function(msg) {
