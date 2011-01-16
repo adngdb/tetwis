@@ -17,6 +17,8 @@ function Game() {
     this.time = 500;
 
     this.id = null;
+
+    this.onReady = null;
 }
 
 Game.prototype = {
@@ -31,29 +33,26 @@ Game.prototype = {
         return this;
     },
 
+    ready: function(callback) {
+        this.onReady = callback;
+    },
+
     /**
      * Initialize the Game object
      */
-    init: function() {
+    init: function(data) {
         log("Game: init");
         if (this.initialized == false)
         {
             this.events = new Events(this);
             this.events.bindAll();
 
+            this.map = new Map(this, data);
+
+            this.onReady.call();
+
             this.initialized = true;
         }
-        return this;
-    },
-
-    initMap: function(data) {
-        this.map = new Map(this, data);
-        this.map.init();
-
-        if (!this.initialized) {
-            this.init();
-        }
-
         return this;
     },
 
@@ -75,14 +74,14 @@ Game.prototype = {
         // Displaying map
         for (var i = 0, size = this.map.cells.length; i < size; i++) {
             var cell = this.map.cells[i];
-            mapElt.append('<div class="cell" style="top: '+ cell.y * this.map.cellSize +'px; left: '+ cell.x * this.map.cellSize +'px; background-color: '+ cell.color +';"></div>');
+            mapElt.append('<div class="cell" style="top: '+ cell.y * this.map.cellSize +'px; left: '+ cell.x * this.map.cellSize +'px; background-color: '+ cell.color +'; width: '+(this.map.cellSize-1)+'px; height: '+(this.map.cellSize-1)+'px;"></div>');
         }
 
         for (var k = 0, nb = this.map.bricks.length; k < nb; k++) {
             var currentBrick = this.map.bricks[k];
             for (var i = 0, size = currentBrick.cells.length; i < size; i++) {
                 var cell = currentBrick.cells[i];
-                mapElt.append('<div class="cell" style="top: '+ (currentBrick.y + cell.y) * this.map.cellSize +'px; left: '+ (currentBrick.x + cell.x) * this.map.cellSize +'px; background-color: '+ cell.color +';"></div>');
+                mapElt.append('<div class="cell" style="top: '+ (currentBrick.y + cell.y) * this.map.cellSize +'px; left: '+ (currentBrick.x + cell.x) * this.map.cellSize +'px; background-color: '+ cell.color +'; width: '+(this.map.cellSize-1)+'px; height: '+(this.map.cellSize-1)+'px;"></div>');
             }
         }
 
