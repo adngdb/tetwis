@@ -21,7 +21,7 @@ Socket.prototype = {
 
         this._ws.onopen = function() {
             log("Socket: onOpen");
-            //instance.game.init();
+            $('#loading-state').text("Connected. Receiving data...");
         };
 
         this._ws.onmessage = function(msg) {
@@ -31,7 +31,6 @@ Socket.prototype = {
 
         this._ws.onclose = function() {
             log("Socket: onClose");
-            alert("Connection lost!");
             instance.game.stop();
         };
 
