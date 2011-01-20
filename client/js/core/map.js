@@ -5,15 +5,12 @@
 function Map(game, data) {
     this.game = game;
 
-    this.width = data.width;
-    this.height = data.height;
-    this.cellSize = data.cellSize;
+    this.width = game.config.map.width;
+    this.height = game.config.map.height;
+    this.cellSize = game.config.map.cellSize;
 
     this.cells = data.cells;
     this.bricks = data.bricks;
-
-    this.colors = data.colors;
-    this.shapes = data.shapes;
 }
 
 Map.prototype = {
