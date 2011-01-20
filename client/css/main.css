@@ -2,10 +2,44 @@
  * Main.css
  **********************************************************************/
 
+#content {
+    width: 400px;
+    float: right;
+}
+    #content h1,
+    #content h2 {
+        margin: 0;
+        text-align: center;
+    }
+    #content h1 {
+        font-size: 6.5em;
+        margin: 0;
+    }
+
+#players {
+    width: 600px;
+}
+    #players span {
+        display: inline-block;
+        text-align: center;
+        width: 24%;
+    }
+
 #map {
     border: 1px solid black;
     position: relative;
+    text-align: center;
+    width: 600px;
 }
+    #map #loader {
+        margin: 0;
+        margin-top: 5px;
+    }
+    #map #loading-state {
+        font-family: Courier, sans-serif;
+        margin: 0;
+        margin-bottom: 5px;
+    }
     #map .cell {
         border: 1px solid #fff;
         position: absolute;
