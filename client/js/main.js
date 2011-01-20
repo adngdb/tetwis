@@ -6,5 +6,6 @@ $(document).ready(function() {
             width  = game.map.width * cellSize;
 
         $('#map').width(width).height(height);
+        $('#players').width(width);
     });
 });
