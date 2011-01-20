@@ -4,16 +4,14 @@ function Socket(game, mp) {
 
     this._ws;
 
-    //~ this.host = "192.168.1.86";
-    //~ this.host = "134.214.241.255";
-    this.host = "localhost";
-    this.port = "3401";
-    this.protocole = "ws";
+    this.host = game.config.server.host;
+    this.port = game.config.server.port;
+    this.protocol = game.config.server.protocol;
 }
 
 Socket.prototype = {
     init: function() {
-        var serverURI = this.protocole + "://" + this.host + ":" + this.port;
+        var serverURI = this.protocol + "://" + this.host + ":" + this.port;
 
         this._ws = new WebSocket(serverURI);
 
