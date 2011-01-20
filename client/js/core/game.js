@@ -23,6 +23,9 @@ function Game() {
 
 Game.prototype = {
 
+    /**
+     * Launches the gams: connects to the server and waits for data.
+     */
     launch: function() {
         log("Game: launch");
         this.mp = new MessageParser(this);
@@ -33,12 +36,16 @@ Game.prototype = {
         return this;
     },
 
+    /**
+     * Sets a callback function when the game is ready.
+     * @param callback Function to call.
+     */
     ready: function(callback) {
         this.onReady = callback;
     },
 
     /**
-     * Initialize the Game object
+     * Initializes the Game object
      */
     init: function(data) {
         log("Game: init");
@@ -56,13 +63,17 @@ Game.prototype = {
         return this;
     },
 
+    /**
+     * Updates the map with data comming from the server, then displays the game.
+     * @param data Object containing the new Map data.
+     */
     updateMap: function(data) {
         this.map.update(data);
         this.display();
     },
 
     /**
-     * Display the game
+     * Displays the game
      */
     display: function() {
         var mapElt = $('#map'),
@@ -99,18 +110,31 @@ Game.prototype = {
         return this;
     },
 
+    /**
+     * Sends a message to the server.
+     * @param msg String containing the message to send.
+     */
     send: function(msg) {
         this.socket.send(msg);
     },
 
+    /**
+     * Asks the server to move our brick to the left.
+     */
     moveLeft: function() {
         this.send( this.mp.getMoveLeft() );
     },
 
+    /**
+     * Asks the server to move our brick to the right.
+     */
     moveRight: function() {
         this.send( this.mp.getMoveRight() );
     },
 
+    /**
+     * Asks the server to change the shape of our brick.
+     */
     changeShape: function() {
         this.send( this.mp.getChangeShape() );
     },
