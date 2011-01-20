@@ -29,7 +29,8 @@ Socket.prototype = {
 
         this._ws.onclose = function() {
             log("Socket: onClose");
-            instance.game.stop();
+            // TODO
+            // Display: cannot connect to server
         };
 
         this.mp = new MessageParser(this.game);
