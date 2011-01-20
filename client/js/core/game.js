@@ -5,6 +5,8 @@
 function Game() {
     this.initialized = false;
 
+    this.config = null;
+
     this.events = null;
     this.socket = null;
     this.mp = null;
@@ -14,20 +16,22 @@ function Game() {
     this.score = 0;
     this.level = 0;
 
-    this.time = 500;
-
-    this.id = null;
-
     this.onReady = null;
 }
 
 Game.prototype = {
 
+    loadConfig: function() {
+        this.config = new Config(this).load();
+        return this;
+    },
+
     /**
-     * Launches the gams: connects to the server and waits for data.
+     * Launches the game: connects to the server and waits for data.
      */
     launch: function() {
         log("Game: launch");
+        $('#loading-state').text("Connecting to server...");
         this.mp = new MessageParser(this);
 
         this.socket = new Socket(this, this.mp);
