@@ -67,7 +67,8 @@ Game.prototype = {
     display: function() {
         var mapElt = $('#map'),
             id = 0,
-            cellSize = this.map.cellSize;
+            cellSize = this.map.cellSize,
+            cellSizeCSS = cellSize - 1;
 
         // Reset current map
         mapElt.empty();
@@ -75,14 +76,14 @@ Game.prototype = {
         // Displaying map
         for (var i = 0, size = this.map.cells.length; i < size; i++) {
             var cell = this.map.cells[i];
-            mapElt.append('<div class="cell" style="top: '+ cell.y * cellSize +'px; left: '+ cell.x * cellSize +'px; background-color: '+ cell.color +'; width: '+cellSize+'px; height: '+cellSize+'px;"></div>');
+            mapElt.append('<div class="cell" style="top: '+ cell.y * cellSize +'px; left: '+ cell.x * cellSize +'px; background-color: '+ cell.color +'; width: '+cellSizeCSS+'px; height: '+cellSizeCSS+'px;"></div>');
         }
 
         for (var k = 0, nb = this.map.bricks.length; k < nb; k++) {
             var currentBrick = this.map.bricks[k];
             for (var i = 0, size = currentBrick.cells.length; i < size; i++) {
                 var cell = currentBrick.cells[i];
-                mapElt.append('<div class="cell" style="top: '+ (currentBrick.y + cell.y) * cellSize +'px; left: '+ (currentBrick.x + cell.x) * cellSize +'px; background-color: '+ cell.color +'; width: '+cellSize+'px; height: '+cellSize+'px;"></div>');
+                mapElt.append('<div class="cell" style="top: '+ (currentBrick.y + cell.y) * cellSize +'px; left: '+ (currentBrick.x + cell.x) * cellSize +'px; background-color: '+ cell.color +'; width: '+cellSizeCSS+'px; height: '+cellSizeCSS+'px;"></div>');
             }
         }
 
