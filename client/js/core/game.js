@@ -22,7 +22,7 @@ function Game() {
 Game.prototype = {
 
     loadConfig: function() {
-        this.config = new Config(thiss).load();
+        this.config = new Config(this).load();
         return this;
     },
 
