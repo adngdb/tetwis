@@ -22,7 +22,7 @@ function Game() {
 Game.prototype = {
 
     loadConfig: function() {
-        this.config = new Config(this).load();
+        this.config = new Config(thiss).load();
         return this;
     },
 
@@ -110,7 +110,6 @@ Game.prototype = {
      */
     gameOver: function() {
         alert('Game OVER!');
-        this.stop();
         return this;
     },
 
