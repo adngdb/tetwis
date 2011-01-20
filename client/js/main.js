@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    var game = new Game().launch();
+    var game = new Game().loadConfig();
     game.ready(function() {
         var cellSize = game.map.cellSize,
             height = game.map.height * cellSize,
