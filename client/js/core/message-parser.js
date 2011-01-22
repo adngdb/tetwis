@@ -6,7 +6,7 @@ MessageParser.prototype = {
 
     parse: function(msg) {
         var data = JSON.parse(msg);
-        log(data);
+        log(data.method);
 
         if (data.method == "get") {
             if (data.object == "map") {
@@ -16,6 +16,9 @@ MessageParser.prototype = {
         else if (data.method == "update") {
             if (data.object == "map") {
                 this.game.updateMap(data.data);
+            }
+            else if (data.object == "playersInfo") {
+                this.game.updatePlayersInfo(data.data);
             }
         }
     },

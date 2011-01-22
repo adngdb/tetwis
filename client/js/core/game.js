@@ -76,6 +76,11 @@ Game.prototype = {
         this.display();
     },
 
+    updatePlayersInfo: function(data) {
+        $('#ingame-number').text(data.ingame);
+        $('#awaiting-number').text(data.awaiting);
+    },
+
     /**
      * Displays the game
      */

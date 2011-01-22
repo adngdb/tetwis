@@ -5,11 +5,12 @@ var sys     = require("sys"),
     m_mp      = require("./lib/message-parser.js");
 
 
-var game = new m_game.Game().init().start();
-var parser = new m_mp.MessageParser(game);
-
 var port = 3401;
 var server = ws.createServer();
+
+var game = new m_game.Game(server).init().start();
+var parser = new m_mp.MessageParser(game);
+
 server.listen(port);
 
 server.addListener("connection", function(conn)

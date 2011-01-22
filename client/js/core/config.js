@@ -1,7 +1,8 @@
 function Config(game) {
     this.game = game;
 
-    this.configFile = "http://localhost/tetwis/game.conf";
+    // TODO couper au dernier slash, si on appelle index.html par exemple
+    this.configFile = window.location.href + "game.conf";
 
     this.server = null;
     this.map = null;
