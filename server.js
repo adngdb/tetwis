@@ -5,7 +5,7 @@ var sys             = require("sys"),
     MessageParser   = require("./lib/message-parser.js");
 
 
-var port = 3401;
+var port = 9309;
 var server = ws.createServer();
 
 var game = new Game(server).init().start();
