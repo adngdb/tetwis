@@ -1,9 +1,9 @@
 var sys             = require("util"),
     http            = require('http'),
-    io              = require('socket.io');/*,
+    io              = require('socket.io'),
     Game            = require("./lib/game.js"),
     Client          = require("./lib/client.js"),
-    MessageParser   = require("./lib/message-parser.js");*/
+    MessageParser   = require("./lib/message-parser.js");
 
 sys.log("Starting server... ");
 
@@ -18,12 +18,12 @@ server.listen(port);
 
 var socket = io.listen(server);
 
-//~ var game = new Game(server).init().start();
-//~ var parser = new MessageParser(game);
+var game = new Game(server).init().start();
+var parser = new MessageParser(game);
 
 socket.on('connection', function(conn){
     sys.log('Client connected');
-    //~ new Client(conn, game, server, parser).init();
+    new Client(conn, game, server, parser).init();
 });
 
 sys.log("Server created. Listening on port " + port + ". ");
