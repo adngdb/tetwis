@@ -22,7 +22,6 @@ var socket = io.listen(server);
 //~ var parser = new MessageParser(game);
 
 socket.on('connection', function(conn){
-{
     sys.log('Client connected');
     //~ new Client(conn, game, server, parser).init();
 });
