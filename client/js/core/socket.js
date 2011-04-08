@@ -2,36 +2,21 @@ function Socket(game, mp) {
     this.game = game;
     this.mp = mp; // MessageParser
 
-    this._ws;
+    this._socket = null;
 
     this.host = game.config.server.host;
     this.port = game.config.server.port;
-    this.protocol = game.config.server.protocol;
 }
 
 Socket.prototype = {
     init: function() {
-        var serverURI = this.protocol + "://" + this.host + ":" + this.port;
 
-        this._ws = new WebSocket(serverURI);
+        this._socket = new io.Socket(this.host, { port: this.port, rememberTransport: false });
+        this._socket.on('connect', this._onOpen.bind(this));
+        this._socket.on('message', this._onMessage.bind(this));
+        this._socket.on('disconnect', this._onClose.bind(this));
 
-        var instance = this;
-
-        this._ws.onopen = function() {
-            log("Socket: onOpen");
-            $('#loading-state').text("Connected. Receiving data...");
-        };
-
-        this._ws.onmessage = function(msg) {
-            log("Socket: onMessage = " + msg.data);
-            instance.mp.parse(msg.data);
-        };
-
-        this._ws.onclose = function() {
-            log("Socket: onClose");
-            // TODO
-            // Display: cannot connect to server
-        };
+        this._socket.connect();
 
         this.mp = new MessageParser(this.game);
 
@@ -39,6 +24,22 @@ Socket.prototype = {
     },
 
     send: function(msg) {
-        this._ws.send(msg);
-    }
+        this._socket.send(msg);
+    },
+
+    _onOpen: function() {
+        log("Socket: onOpen");
+        $('#loading-state').text("Connected. Receiving data...");
+    },
+
+    _onMessage: function() {
+        log("Socket: onMessage = " + msg.data);
+        this.mp.parse(msg.data);
+    },
+
+    _onClose: function() {
+        log("Socket: onClose");
+        // TODO
+        // Display: cannot connect to server
+    },
 }

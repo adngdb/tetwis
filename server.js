@@ -4,13 +4,13 @@ var util    = require('util'),
 
 util.log('Starting server...');
 
-server = http.createServer(function(req, res){
+var server = http.createServer(function(req, res){
     res.writeHead(200, {'Content-Type': 'text/html'});
     res.end('<h1>Hello world</h1>');
 });
 server.listen(9309);
 
-socket = io.listen(server);
+var socket = io.listen(server);
 
 socket.on('connection', function(conn){
     util.log('Connection accepted');
