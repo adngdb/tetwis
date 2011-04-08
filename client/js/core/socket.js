@@ -32,9 +32,9 @@ Socket.prototype = {
         $('#loading-state').text("Connected. Receiving data...");
     },
 
-    _onMessage: function() {
-        log("Socket: onMessage = " + msg.data);
-        this.mp.parse(msg.data);
+    _onMessage: function(msg) {
+        log("Socket: onMessage = " + msg);
+        this.mp.parse(msg);
     },
 
     _onClose: function() {
