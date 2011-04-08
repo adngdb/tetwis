@@ -1,9 +1,10 @@
-var sys             = require("sys"),
+var sys             = require("util"),
     ws              = require("websocket-server"),
     Game            = require("./lib/game.js"),
     Client          = require("./lib/client.js"),
     MessageParser   = require("./lib/message-parser.js");
 
+sys.log("Starting server... ");
 
 var port = 9309;
 var server = ws.createServer();
