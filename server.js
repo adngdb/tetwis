@@ -1,23 +1,16 @@
-var sys             = require("util"),
-    ws              = require("websocket-server");/*,
-    Game            = require("./lib/game.js"),
-    Client          = require("./lib/client.js"),
-    MessageParser   = require("./lib/message-parser.js");*/
+var util = require('util'),
+    http    = require('http'),
+    io = require('socket.io');
 
-sys.log("Starting server... ");
+util.log('Starting server...');
 
-var port = 9309;
-var server = ws.createServer();
+server = http.createServer(function(req, res){});
+socket = io.listen(this.server);
 
-//~ var game = new Game(server).init().start();
-//~ var parser = new MessageParser(game);
+server.listen(9309);
 
-server.listen(port);
+socket.on('connection', function(conn){
+    util.log('Connection accepted');
+}
 
-server.addListener("connection", function(conn)
-{
-    sys.log('Client connected');
-    //~ new Client(conn, game, server, parser).init();
-});
-
-sys.log("Server created. Listening on port " + port + ". ");
+util.log('Server ready');
