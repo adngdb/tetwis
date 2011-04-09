@@ -11,7 +11,7 @@ function Socket(game, mp) {
 Socket.prototype = {
     init: function() {
 
-        this._socket = new io.Socket(this.host, { port: this.port, rememberTransport: false });
+        this._socket = new io.Socket(this.host, { port: this.port });
         this._socket.on('connect', this._onOpen.bind(this));
         this._socket.on('message', this._onMessage.bind(this));
         this._socket.on('disconnect', this._onClose.bind(this));
@@ -33,7 +33,7 @@ Socket.prototype = {
     },
 
     _onMessage: function(msg) {
-        log("Socket: onMessage = " + msg);
+        //log("Socket: onMessage = " + msg);
         this.mp.parse(msg);
     },
 

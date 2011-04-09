@@ -5,7 +5,7 @@ function MessageParser(game) {
 MessageParser.prototype = {
 
     parse: function(msg) {
-        console.log(msg);
+        //console.log(msg);
         var data = JSON.parse(msg);
         log(data.method);
 
