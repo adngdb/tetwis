@@ -16,7 +16,7 @@ var server = http.createServer(function(req, res){
                 '<script>' +
                 'var staticFilesServer = "http://tetwis.lqbs.fr/";' +
                 'load("http://cdn.socket.io/stable/socket.io.js", staticFilesServer+"js/libs/jquery.min.js")' +
-                '.thenRun( function() { $("body").load(staticFilesServer+"content.html"); } )' +
+                //'.thenRun( function() { $("body").load(staticFilesServer+"content.html"); } )' +
                 '.thenLoad( staticFilesServer+"js/libs/jquery.timers.js", ' +
                 '       staticFilesServer+"js/libs/json2.js", ' +
                 '       staticFilesServer+"js/core/config.js", ' +
