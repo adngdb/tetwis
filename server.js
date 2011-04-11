@@ -10,8 +10,13 @@ sys.log("Starting server... ");
 var port = 9309;
 
 var server = http.createServer(function(req, res){
+    var html =  '<!DOCTYPE html><html><head><title>Tetwis ! JavaScript powered game</title>' +
+                '<link rel="stylesheet" type="text/css" href="css/main.css" />' +
+                '</head><body>' +
+                '<p>Loading...</p>' +
+                '</body></html>';
     res.writeHead(200, {'Content-Type': 'text/html', 'Location': 'http://tetwis.lqbs.fr'});
-    res.end('');
+    res.end(html);
 });
 
 server.listen(port);
