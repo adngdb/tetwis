@@ -16,7 +16,8 @@ var server = http.createServer(function(req, res){
                 '<script>' +
                 'var staticFilesServer = "http://tetwis.lqbs.fr/";' +
                 'load("http://cdn.socket.io/stable/socket.io.js", staticFilesServer+"js/libs/jquery.min.js")' +
-                '.then( staticFilesServer+"js/libs/jquery.timers.js", ' +
+                '.thenRun( function() { $("body").load(staticFilesServer+"content.html"); } )' +
+                '.thenLoad( staticFilesServer+"js/libs/jquery.timers.js", ' +
                 '       staticFilesServer+"js/libs/json2.js", ' +
                 '       staticFilesServer+"js/core/config.js", ' +
                 '       staticFilesServer+"js/core/cell.js", ' +
@@ -26,6 +27,7 @@ var server = http.createServer(function(req, res){
                 '       staticFilesServer+"js/core/message-parser.js", ' +
                 '       staticFilesServer+"js/core/socket.js", ' +
                 '       staticFilesServer+"js/core/game.js")' +
+                '.then( staticFilesServer+"js/main.js");' +
                 '</script>' +
                 '</head><body>' +
                 '<p>Loading...</p>' +
