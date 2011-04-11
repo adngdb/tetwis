@@ -15,7 +15,7 @@ var port = 9309;
 
 var path = "/client";
 
-http.createServer(function (request, response) {
+var server = http.createServer(function (request, response) {
 
     var uri = url.parse(request.url).pathname;
     var filename = libpath.join(path, uri);
