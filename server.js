@@ -11,7 +11,7 @@ var port = 9309;
 
 var server = http.createServer(function(req, res){
     var html =  '<!DOCTYPE html><html><head><title>Tetwis ! JavaScript powered game</title>' +
-                '<link rel="stylesheet" type="text/css" href="css/main.css" />' +
+                '<link rel="stylesheet" type="text/css" href="http://tetwis.lqbs.fr/css/main.css" />' +
                 '<script src="http://tetwis.lqbs.fr/js/libs/load.js"></script>' +
                 '<script>' +
                 'var staticFilesServer = "http://tetwis.lqbs.fr/"' +
