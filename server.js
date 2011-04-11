@@ -52,7 +52,9 @@ var server = http.createServer(function (request, response) {
             response.end();
         });
     });
-}).listen(port);
+});
+
+server.listen(port);
 
 var socket = io.listen(server);
 
