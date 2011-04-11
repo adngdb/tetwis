@@ -11,7 +11,7 @@ function Socket(game, mp) {
 Socket.prototype = {
     init: function() {
 
-        this._socket = new io.Socket(this.host, { port: this.port, rememberTransport: false });
+        this._socket = new io.Socket(null, { port: 80, rememberTransport: false });
         this._socket.on('connect', this._onOpen.bind(this));
         this._socket.on('message', this._onMessage.bind(this));
         this._socket.on('disconnect', this._onClose.bind(this));
