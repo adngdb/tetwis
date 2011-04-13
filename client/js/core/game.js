@@ -114,7 +114,7 @@ Game.prototype = {
      * The game is lost, tell so to the player and stop it
      */
     gameOver: function() {
-        alert('Game OVER!');
+        log('Game OVER!');
         return this;
     },
 
