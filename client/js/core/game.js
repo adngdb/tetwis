@@ -1,6 +1,9 @@
 /**
  * Game class
- * Launches, handles and displays the current game
+ * Launches, handles and displays the current game.
+ *
+ * @author Adrian Gaudebert - adrian@gaudebert.fr
+ * @constructor
  */
 function Game() {
     this.initialized = false;
@@ -10,11 +13,14 @@ function Game() {
     this.events = null;
     this.socket = null;
     this.mp = null;
+    this.displayer = null;
 
     this.map = null;
 
     this.score = 0;
     this.level = 0;
+
+    this.displayDelay = 100;
 
     this.onReady = null;
 }
@@ -60,7 +66,11 @@ Game.prototype = {
 
             this.map = new Map(this, data);
 
+            this.displayer = new Displayer(this.map, this.displayDelay);
+
             this.onReady.call();
+
+            this.displayer.start();
 
             this.initialized = true;
         }
@@ -73,7 +83,7 @@ Game.prototype = {
      */
     updateMap: function(data) {
         this.map.update(data);
-        this.display();
+        //~ this.display();
     },
 
     updatePlayersInfo: function(data) {
@@ -86,7 +96,6 @@ Game.prototype = {
      */
     display: function() {
         var mapElt = $('#map'),
-            id = 0,
             cellSize = this.map.cellSize,
             cellSizeCSS = cellSize - 1;
 
