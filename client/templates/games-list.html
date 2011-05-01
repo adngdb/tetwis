@@ -1,0 +1,13 @@
+<ul>
+	{{each Game}}
+	<li>
+		<h3>{$Name}</h3>
+		<p>{{each(i, player) Players}}
+			{{if i != 1 }}
+			,
+			{{/if}}
+			${player}
+		{{/each}}</p>
+	</li>
+	{{/each}}
+</ul>
