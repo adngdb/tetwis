@@ -2,8 +2,7 @@
  * Map class
  * Manages the map, meaning all the cells and the current brick
  */
-tetwis.Map = function(game, data) {
-    this.game = game;
+tetwis.Map = function(data) {
 
     this.width = tetwis.config.map.width;
     this.height = tetwis.config.map.height;
