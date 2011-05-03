@@ -3,7 +3,7 @@
 		,loaded = false
 		;
 
-	load("js/libs/jquery.min.js")
+	load("js/libs/jquery.min.js", "js/tetwis.js")
 	.then("js/libs/jquery.tmpl.js")
 	.thenRun(function() {
 		$.get('templates/login.html', function(data) {
