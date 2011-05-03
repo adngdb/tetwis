@@ -29,7 +29,7 @@ tetwis.Game.prototype = {
             this.events = new tetwis.Events(this);
             this.events.bindAll();
 
-            this.map = new tetwis.Map(this, data);
+            this.map = new tetwis.Map(data);
 
             tetwis.displayer.setMap(this.map);
             tetwis.displayer.start();
@@ -45,40 +45,11 @@ tetwis.Game.prototype = {
      */
     updateMap: function(data) {
         this.map.update(data);
-        //~ this.display();
     },
 
     updatePlayersInfo: function(data) {
         $('#ingame-number').text(data.ingame);
         $('#awaiting-number').text(data.awaiting);
-    },
-
-    /**
-     * Displays the game
-     */
-    display: function() {
-        var mapElt = $('#map'),
-            cellSize = this.map.cellSize,
-            cellSizeCSS = cellSize - 1;
-
-        // Reset current map
-        mapElt.empty();
-
-        // Displaying map
-        for (var i = 0, size = this.map.cells.length; i < size; i++) {
-            var cell = this.map.cells[i];
-            mapElt.append('<div class="cell" style="top: '+ cell.y * cellSize +'px; left: '+ cell.x * cellSize +'px; background-color: '+ cell.color +'; width: '+cellSizeCSS+'px; height: '+cellSizeCSS+'px;"></div>');
-        }
-
-        for (var k = 0, nb = this.map.bricks.length; k < nb; k++) {
-            var currentBrick = this.map.bricks[k];
-            for (var i = 0, size = currentBrick.cells.length; i < size; i++) {
-                var cell = currentBrick.cells[i];
-                mapElt.append('<div class="cell" style="top: '+ (currentBrick.y + cell.y) * cellSize +'px; left: '+ (currentBrick.x + cell.x) * cellSize +'px; background-color: '+ cell.color +'; width: '+cellSizeCSS+'px; height: '+cellSizeCSS+'px;"></div>');
-            }
-        }
-
-        return this;
     },
 
     /**
@@ -101,21 +72,21 @@ tetwis.Game.prototype = {
      * Asks the server to move our brick to the left.
      */
     moveLeft: function() {
-        this.send( this.mp.getMoveLeft() );
+        this.send( tetwis.mb.getMoveLeft() );
     },
 
     /**
      * Asks the server to move our brick to the right.
      */
     moveRight: function() {
-        this.send( this.mp.getMoveRight() );
+        this.send( tetwis.mb.getMoveRight() );
     },
 
     /**
      * Asks the server to change the shape of our brick.
      */
     changeShape: function() {
-        this.send( this.mp.getChangeShape() );
+        this.send( tetwis.mb.getChangeShape() );
     },
 }
 
