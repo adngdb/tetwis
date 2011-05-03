@@ -40,6 +40,7 @@ tetwis.Engine.prototype = {
 	 * Callback function called when the configuration is loaded.
 	 */
     onConfigLoaded: function() {
+		tetwis.displayer.setState("Connecting to the server... ");
 		this.openConnection();
 	},
 
@@ -59,6 +60,8 @@ tetwis.Engine.prototype = {
 	},
 
 	launchNewGame: function() {
+		tetwis.displayer.setState("Receiving data...");
+
 		this.game = new tetwis.Game();
 
 		// loading the game template
