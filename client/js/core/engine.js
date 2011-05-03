@@ -10,32 +10,52 @@ tetwis.Engine = function() {
     this.config = null;
 
     this.socket = null;
-    this.mp = null;
+    this.messageParser = null;
+    this.messageBuilder = null;
 };
 
 tetwis.Engine.prototype = {
 
 	init: function() {
-        this.mp = new tetwis.MessageParser(this);
+        tetwis.mp = this.messageParser = new tetwis.MessageParser(this);
+        tetwis.mb = this.messageBuilder = new tetwis.MessageBuilder();
+
+        return this;
+	},
+
+	launch: function() {
+		this.loadConfig();
+        return this;
 	},
 
 	/**
 	 * Load the configuration and places it in the tetwis namespace.
 	 */
 	loadConfig: function() {
-        tetwis.config = this.config = new tetwis.Config().load(this.configReady.bind(this));
+        tetwis.config = this.config = new tetwis.Config().load( this.onConfigLoaded.bind(this) );
         return this;
     },
 
 	/**
 	 * Callback function called when the configuration is loaded.
 	 */
-    configReady: function() {
-		alert('hello');
+    onConfigLoaded: function() {
+		this.openConnection();
 	},
 
+	/**
+	 * Open a connection to the server.
+	 */
 	openConnection: function() {
-		this.socket = new tetwis.Socket(this, this.mp);
+		tetwis.socket = this.socket = new tetwis.Socket().init( this.onConnectionOpened.bind(this) );
+        return this;
+	},
+
+	/**
+	 * Callback function called when the connection to the server is opened.
+	 */
+	onConnectionOpened: function() {
+		alert('coucou');
 	},
 
 };
