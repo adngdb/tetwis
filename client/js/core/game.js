@@ -27,38 +27,11 @@ tetwis.Game = function() {
 
 tetwis.Game.prototype = {
 
-    loadConfig: function() {
-        this.config = new tetwis.Config(this).load();
-        return this;
-    },
-
-    /**
-     * Launches the game: connects to the server and waits for data.
-     */
-    launch: function() {
-        log("Game: launch");
-        $('#loading-state').text("Connecting to server...");
-        this.mp = new tetwis.MessageParser(this);
-
-        this.socket = new tetwis.Socket(this, this.mp);
-        this.socket.init();
-
-        return this;
-    },
-
-    /**
-     * Sets a callback function when the game is ready.
-     * @param callback Function to call.
-     */
-    ready: function(callback) {
-        this.onReady = callback;
-    },
-
     /**
      * Initializes the Game object
      */
     init: function(data) {
-        log("Game: init");
+        tetwis.log("Game: init");
         if (this.initialized == false)
         {
             this.events = new tetwis.Events(this);
@@ -123,7 +96,7 @@ tetwis.Game.prototype = {
      * The game is lost, tell so to the player and stop it
      */
     gameOver: function() {
-        log('Game OVER!');
+        tetwis.log('Game OVER!');
         return this;
     },
 
@@ -132,7 +105,7 @@ tetwis.Game.prototype = {
      * @param msg String containing the message to send.
      */
     send: function(msg) {
-        this.socket.send(msg);
+        tetwis.socket.send(msg);
     },
 
     /**
