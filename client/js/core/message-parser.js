@@ -22,25 +22,4 @@ tetwis.MessageParser.prototype = {
         }
     },
 
-    getChangeBrick: function(action) {
-        return JSON.stringify({
-            method: "do",
-            object: "brick",
-            data: {
-                action: action
-            },
-        });
-    },
-
-    getMoveLeft: function() {
-        return this.getChangeBrick("moveLeft");
-    },
-
-    getMoveRight: function() {
-        return this.getChangeBrick("moveRight");
-    },
-
-    getChangeShape: function() {
-        return this.getChangeBrick("changeShape");
-    },
 }
