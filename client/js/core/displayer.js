@@ -6,18 +6,21 @@
  * @constructor
  */
 tetwis.Displayer = function() {
-    this.map = null;
-
-    this.mapElt = $('#map');
-    this.contentElt = $('#content');
-    this.cellSize = this.map.cellSize;
-    this.cellSizeCSS = this.cellSize - 1;
+	this.mapElt = $('#map');
+	this.contentElt = $('#content');
 
     this.delay = 100; // TODO move to the config file (see Game)
     this.intervalId = null;
 }
 
 tetwis.Displayer.prototype = {
+
+	setMap: function(map) {
+		this.map = map;
+
+		this.cellSize = this.map.cellSize;
+		this.cellSizeCSS = this.cellSize - 1;
+	},
 
     start: function() {
         this.intervalId = window.setInterval(this.display.bind(this), this.delay);
