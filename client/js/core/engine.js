@@ -1,7 +1,7 @@
 /**
  * Class Engine
  * Central class, creates the configuration, the server connection,
- * then displays lists and launches games.
+ * then displays games lists and launches games.
  *
  * @author Adrian Gaudebert - adrian@gaudebert.fr
  * @constructor
@@ -16,6 +16,10 @@ tetwis.Engine = function() {
 
 tetwis.Engine.prototype = {
 
+	/**
+	 * Initializes the game engine. Creates the MessageParser and MessageBuilder.
+	 * @return this.
+	 */
 	init: function() {
         tetwis.mp = this.messageParser = new tetwis.MessageParser(this);
         tetwis.mb = this.messageBuilder = new tetwis.MessageBuilder();
@@ -23,13 +27,18 @@ tetwis.Engine.prototype = {
         return this;
 	},
 
+	/**
+	 * Launches the engine by loading the configuration.
+	 * @return this.
+	 */
 	launch: function() {
 		this.loadConfig();
         return this;
 	},
 
 	/**
-	 * Load the configuration and places it in the tetwis namespace.
+	 * Loads the configuration and places it in the tetwis namespace.
+	 * @return this.
 	 */
 	loadConfig: function() {
         tetwis.config = this.config = new tetwis.Config().load( this.onConfigLoaded.bind(this) );
@@ -45,7 +54,8 @@ tetwis.Engine.prototype = {
 	},
 
 	/**
-	 * Open a connection to the server.
+	 * Opens a connection to the server.
+	 * @return this.
 	 */
 	openConnection: function() {
 		tetwis.socket = this.socket = new tetwis.Socket().init( this.onConnectionOpened.bind(this) );
@@ -56,14 +66,18 @@ tetwis.Engine.prototype = {
 	 * Callback function called when the connection to the server is opened.
 	 */
 	onConnectionOpened: function() {
+		this.socket.send( this.messageBuilder.createAuthenticationLogin( tetwis.user ) );
 		this.launchNewGame();
 	},
 
+	/**
+	 * Creates a new game and launches it.
+	 * @return this.
+	 */
 	launchNewGame: function() {
 		tetwis.displayer.setState("Receiving data...");
-
 		this.game = new tetwis.Game();
-
+	    return this;
 	},
 
 };
