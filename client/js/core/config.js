@@ -13,7 +13,7 @@ tetwis.Config.prototype = {
         tetwis.log("Loading configuration");
         var instance = this;
         $.getJSON(this.configFile, function(data) {
-            log("Configuration loaded");
+            tetwis.log("Configuration loaded");
 
             this.server = data.server;
             this.map = data.map;
