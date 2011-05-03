@@ -13,9 +13,19 @@ tetwis.Engine = function() {
 
 tetwis.Engine.prototype = {
 
+	/**
+	 * Load the configuration and places it in the tetwis namespace.
+	 */
 	loadConfig: function() {
-        tetwis.config = this.config = new tetwis.Config().load();
+        tetwis.config = this.config = new tetwis.Config().load(this.configReady.bind(this));
         return this;
     },
+
+	/**
+	 * Callback function called when the configuration is loaded.
+	 */
+    configReady: function() {
+		alert('hello');
+	},
 
 };
