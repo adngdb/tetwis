@@ -1,5 +1,5 @@
-tetwis.MessageParser = function(game) {
-    this.game = game;
+tetwis.MessageParser = function(engine) {
+    this.engine = engine;
 }
 
 tetwis.MessageParser.prototype = {
@@ -9,15 +9,15 @@ tetwis.MessageParser.prototype = {
 
         if (data.method == "get") {
             if (data.object == "map") {
-                this.game.init(data.data);
+                this.engine.game.init(data.data);
             }
         }
         else if (data.method == "update") {
             if (data.object == "map") {
-                this.game.updateMap(data.data);
+                this.engine.game.updateMap(data.data);
             }
             else if (data.object == "playersInfo") {
-                this.game.updatePlayersInfo(data.data);
+                this.engine.game.updatePlayersInfo(data.data);
             }
         }
     },
