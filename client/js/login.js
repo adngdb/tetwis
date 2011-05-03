@@ -1,6 +1,14 @@
 
+if (typeof tetwis == undefined || null == tetwis) {
+	tetwis = {};
+}
+
+tetwis.user = null;
+
 (function() {
-	var user = null;
+	var user = null
+		,loaded = false
+		;
 
 	load("js/libs/jquery.min.js")
 	.then("js/libs/jquery.tmpl.js")
@@ -21,7 +29,7 @@
 		});
 	});
 
-	function next() {
+	function load() {
 		load("js/libs/socket.io.min.js",
 			"js/libs/jquery.timers.js",
 			"js/libs/json2.js",
@@ -34,6 +42,16 @@
 			"js/core/message-parser.js",
 			"js/core/socket.js",
 			"js/core/game.js"
-		).then("js/main.js");
+		).thenRun(function() {
+			loaded = true;
+			next();
+		});
+	}
+
+	function next() {
+		if (user != null && loaded) {
+			tetwis.user = user;
+			load("js/main.js");
+		}
 	}
 })();
