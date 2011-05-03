@@ -36,7 +36,8 @@
 			"js/core/events.js",
 			"js/core/message-parser.js",
 			"js/core/socket.js",
-			"js/core/game.js"
+			"js/core/game.js",
+			"js/core/engine.js"
 		).thenRun(function() {
 			loaded = true;
 			next();
