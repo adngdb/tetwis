@@ -11,7 +11,7 @@ tetwis.Brick = function(data) {
 
     for (var i = 0; i < this.cells.length; i++) {
         var cell = this.cells[i];
-        this.cells[i] = new tetwis.tetwis.Cell(cell);
+        this.cells[i] = new tetwis.Cell(cell);
     }
 }
 
