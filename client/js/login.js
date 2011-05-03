@@ -1,7 +1,4 @@
-
-if (typeof tetwis == undefined || null == tetwis) {
-	tetwis = {};
-}
+var tetwis = {};
 
 tetwis.user = null;
 
