@@ -6,22 +6,21 @@
 	load("js/libs/jquery.min.js", "js/core/displayer.js")
 	.then("js/libs/jquery.tmpl.js", "js/tetwis.js")
 	.thenRun(function() {
-		$.get('templates/login.html', function(data) {
-			$.tmpl(data).appendTo('#content');
 
+		prepare();
+
+		tetwis.displayer.displayTemplate('templates/login.html', null, function(data) {
 			$('#submit-login').click(function (e) {
 				e.preventDefault();
 				var login = $('#user-login').val();
 
 				if (login != null && login != '') {
 					user = login;
-					$('#content').empty();
 					next();
 				}
 			});
-
-			prepare();
 		});
+
 	});
 
 	function prepare() {
