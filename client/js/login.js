@@ -16,6 +16,7 @@
 
 				if (login != null && login != '') {
 					user = login;
+					tetwis.displayer.displayTemplate('templates/loading.html');
 					next();
 				}
 			});
