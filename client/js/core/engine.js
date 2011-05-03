@@ -9,9 +9,15 @@
 tetwis.Engine = function() {
     this.config = null;
 
+    this.socket = null;
+    this.mp = null;
 };
 
 tetwis.Engine.prototype = {
+
+	init: function() {
+        this.mp = new tetwis.MessageParser(this);
+	},
 
 	/**
 	 * Load the configuration and places it in the tetwis namespace.
@@ -26,6 +32,10 @@ tetwis.Engine.prototype = {
 	 */
     configReady: function() {
 		alert('hello');
+	},
+
+	openConnection: function() {
+		this.socket = new tetwis.Socket(this, this.mp);
 	},
 
 };
