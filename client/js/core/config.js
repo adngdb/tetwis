@@ -1,6 +1,4 @@
-tetwis.Config = function(game) {
-    this.game = game;
-
+tetwis.Config = function() {
     // TODO couper au dernier slash, si on appelle index.html par exemple
     this.configFile = window.location.href + "game.conf";
 
@@ -12,17 +10,15 @@ tetwis.Config = function(game) {
 tetwis.Config.prototype = {
 
     load: function() {
-        log("Loading configuration");
+        tetwis.log("Loading configuration");
         var instance = this;
         $.getJSON(this.configFile, function(data) {
             log("Configuration loaded");
 
-            instance.server = data.server;
-            instance.map = data.map;
-            instance.players = data.players;
-
-            instance.game.launch();
-        });
+            this.server = data.server;
+            this.map = data.map;
+            this.players = data.players;
+        }.bind(this));
         return this;
     },
 
