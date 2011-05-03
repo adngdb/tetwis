@@ -31,7 +31,8 @@ tetwis.Game.prototype = {
 
             this.map = new tetwis.Map(this, data);
 
-            this.displayer.start();
+            tetwis.displayer.setMap(this.map);
+            tetwis.displayer.start();
 
             this.initialized = true;
         }
