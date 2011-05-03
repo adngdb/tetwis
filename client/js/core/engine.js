@@ -65,9 +65,7 @@ tetwis.Engine.prototype = {
 		this.game = new tetwis.Game();
 
 		// loading the game template
-		$.get('templates/game.html', function(data) {
-			$.tmpl(data).appendTo('#content');
-
+		tetwis.displayer.displayTemplate('templates/game.html', null, function(data) {
 			var cellSize = this.game.map.cellSize,
 				height = this.game.map.height * cellSize,
 				width  = this.game.map.width * cellSize;
