@@ -9,7 +9,7 @@ tetwis.Config = function() {
 
 tetwis.Config.prototype = {
 
-    load: function() {
+    load: function(callback) {
         tetwis.log("Loading configuration");
         var instance = this;
         $.getJSON(this.configFile, function(data) {
@@ -18,6 +18,8 @@ tetwis.Config.prototype = {
             this.server = data.server;
             this.map = data.map;
             this.players = data.players;
+
+            callback();
         }.bind(this));
         return this;
     },
