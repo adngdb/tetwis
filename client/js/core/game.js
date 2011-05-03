@@ -31,8 +31,23 @@ tetwis.Game.prototype = {
 
             this.map = new tetwis.Map(data);
 
-            tetwis.displayer.setMap(this.map);
-            tetwis.displayer.start();
+			// loading the game template
+			tetwis.displayer.displayTemplate('templates/game.html', null, function() {
+				var cellSize = this.map.cellSize,
+					height = this.map.height * cellSize,
+					width  = this.map.width * cellSize;
+
+				$('#map').width(width).height(height);
+				$('#players').width(width);
+
+				for (var i = 0; i < tetwis.config.players.number; i++) {
+					$('#p'+(i+1)).css('color', tetwis.config.players.colors[i]);
+				}
+
+				tetwis.displayer.setMap(this.map);
+				tetwis.displayer.start();
+
+			}.bind(this));
 
             this.initialized = true;
         }

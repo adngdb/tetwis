@@ -64,19 +64,6 @@ tetwis.Engine.prototype = {
 
 		this.game = new tetwis.Game();
 
-		// loading the game template
-		tetwis.displayer.displayTemplate('templates/game.html', null, function(data) {
-			var cellSize = this.game.map.cellSize,
-				height = this.game.map.height * cellSize,
-				width  = this.game.map.width * cellSize;
-
-			$('#map').width(width).height(height);
-			$('#players').width(width);
-
-			for (var i = 0; i < tetwis.config.players.number; i++) {
-				$('#p'+(i+1)).css('color', tetwis.config.players.colors[i]);
-			}
-		}.bind(this));
 	},
 
 };
