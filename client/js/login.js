@@ -23,10 +23,12 @@ tetwis.user = null;
 					next();
 				}
 			});
+
+			prepare();
 		});
 	});
 
-	function load() {
+	function prepare() {
 		load("js/libs/socket.io.min.js",
 			"js/libs/jquery.timers.js",
 			"js/libs/json2.js",
