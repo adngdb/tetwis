@@ -66,4 +66,8 @@ tetwis.Displayer.prototype = {
 
 		}.bind(this));
 	},
+
+	setState: function(state) {
+		$('#loading-state').text(state);
+	},
 };
