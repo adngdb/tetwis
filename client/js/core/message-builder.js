@@ -88,25 +88,26 @@ tetwis.MessageBuilder.prototype = {
 
 	// TODO change to use the better protocol
     getChangeBrick: function(action) {
-        return JSON.stringify({
+		return this.createAction(action, {});
+        /*turn JSON.stringify({
             method: "do",
             object: "brick",
             data: {
                 action: action
             },
-        });
+        });*/
     },
 
     getMoveLeft: function() {
-        return this.getChangeBrick("moveLeft");
+        return this.getChangeBrick("move-left");
     },
 
     getMoveRight: function() {
-        return this.getChangeBrick("moveRight");
+        return this.getChangeBrick("move-right");
     },
 
     getChangeShape: function() {
-        return this.getChangeBrick("changeShape");
+        return this.getChangeBrick("change-shape");
     },
 
 }
