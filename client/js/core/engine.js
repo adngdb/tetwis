@@ -55,7 +55,27 @@ tetwis.Engine.prototype = {
 	 * Callback function called when the connection to the server is opened.
 	 */
 	onConnectionOpened: function() {
-		alert('coucou');
+		this.launchNewGame();
+	},
+
+	launchNewGame: function() {
+		this.game = new tetwis.Game().init();
+
+		// loading the game template
+		$.get('templates/game.html', function(data) {
+			$.tmpl(data).appendTo('#content');
+
+			var cellSize = this.game.map.cellSize,
+				height = this.game.map.height * cellSize,
+				width  = this.game.map.width * cellSize;
+
+			$('#map').width(width).height(height);
+			$('#players').width(width);
+
+			for (var i = 0; i < tetwis.config.players.number; i++) {
+				$('#p'+(i+1)).css('color', tetwis.config.players.colors[i]);
+			}
+		}.bind(this));
 	},
 
 };
