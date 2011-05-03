@@ -57,8 +57,13 @@ tetwis.Displayer.prototype = {
 		this.contentElt.empty();
 
 		$.get(templateURI, function(tpl) {
+
 			$.tmpl(tpl, data).appendTo(this.contentElt);
-			callback();
+
+			if (callback != null) {
+				callback();
+			}
+
 		}.bind(this));
 	},
 };
