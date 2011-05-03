@@ -4,7 +4,7 @@ $(document).ready(function() {
 	$.get('templates/game.html', function(data) {
 		$.tmpl(data).appendTo('#content');
 
-		var game = new Game().loadConfig();
+		var game = new tetwis.Game().loadConfig();
 		game.ready(function() {
 			var cellSize = game.map.cellSize,
 				height = game.map.height * cellSize,
