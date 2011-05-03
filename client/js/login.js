@@ -34,6 +34,7 @@
 			"js/core/map.js",
 			"js/core/displayer.js",
 			"js/core/events.js",
+			"js/core/message-builder.js",
 			"js/core/message-parser.js",
 			"js/core/socket.js",
 			"js/core/game.js",
