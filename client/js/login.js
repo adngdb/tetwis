@@ -1,7 +1,3 @@
-var tetwis = {};
-
-tetwis.user = null;
-
 (function() {
 	var user = null
 		,loaded = false
