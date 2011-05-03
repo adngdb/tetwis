@@ -5,7 +5,7 @@
  * @author Adrian Gaudebert - adrian@gaudebert.fr
  * @constructor
  */
-function Displayer(map, delay) {
+tetwis.Displayer = function(map, delay) {
     this.map = map;
 
     this.htmlElt = $('#map');
@@ -16,7 +16,7 @@ function Displayer(map, delay) {
     this.intervalId = null;
 }
 
-Displayer.prototype = {
+tetwis.Displayer.prototype = {
 
     start: function() {
         this.intervalId = window.setInterval(this.display.bind(this), this.delay);

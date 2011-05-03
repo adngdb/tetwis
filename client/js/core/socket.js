@@ -1,4 +1,4 @@
-function Socket(game, mp) {
+tetwis.Socket = function(game, mp) {
     this.game = game;
     this.mp = mp; // MessageParser
 
@@ -8,17 +8,17 @@ function Socket(game, mp) {
     this.port = game.config.server.port;
 }
 
-Socket.prototype = {
+tetwis.Socket.prototype = {
     init: function() {
 
-        this._socket = new io.Socket(this.host, { port: this.port, rememberTransport: false });
+        this._socket = new tetwis.io.Socket(this.host, { port: this.port, rememberTransport: false });
         this._socket.on('connect', this._onOpen.bind(this));
         this._socket.on('message', this._onMessage.bind(this));
         this._socket.on('disconnect', this._onClose.bind(this));
 
         this._socket.connect();
 
-        this.mp = new MessageParser(this.game);
+        this.mp = new tetwis.MessageParser(this.game);
 
         log("Socket initialized");
     },

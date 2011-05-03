@@ -1,4 +1,4 @@
-function Config(game) {
+tetwis.Config = function(game) {
     this.game = game;
 
     // TODO couper au dernier slash, si on appelle index.html par exemple
@@ -9,7 +9,7 @@ function Config(game) {
     this.players = null;
 };
 
-Config.prototype = {
+tetwis.Config.prototype = {
 
     load: function() {
         log("Loading configuration");

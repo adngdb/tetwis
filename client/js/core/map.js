@@ -2,7 +2,7 @@
  * Map class
  * Manages the map, meaning all the cells and the current brick
  */
-function Map(game, data) {
+tetwis.Map = function(game, data) {
     this.game = game;
 
     this.width = game.config.map.width;
@@ -13,7 +13,7 @@ function Map(game, data) {
     this.bricks = data.bricks;
 }
 
-Map.prototype = {
+tetwis.Map.prototype = {
 
     update: function(data) {
         if (typeof data.cells != undefined && data.cells != null) {
@@ -28,7 +28,7 @@ Map.prototype = {
     updateBricks: function() {
         for (var i = 0; i < this.bricks.length; i++) {
             var brick = this.bricks[i];
-            this.bricks[i] = new Brick(brick);
+            this.bricks[i] = new tetwis.Brick(brick);
         }
     },
 }

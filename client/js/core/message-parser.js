@@ -1,8 +1,8 @@
-function MessageParser(game) {
+tetwis.MessageParser = function(game) {
     this.game = game;
 }
 
-MessageParser.prototype = {
+tetwis.MessageParser.prototype = {
 
     parse: function(msg) {
         var data = JSON.parse(msg);

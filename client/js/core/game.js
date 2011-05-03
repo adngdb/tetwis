@@ -5,7 +5,7 @@
  * @author Adrian Gaudebert - adrian@gaudebert.fr
  * @constructor
  */
-function Game() {
+tetwis.Game = function() {
     this.initialized = false;
 
     this.config = null;
@@ -25,10 +25,10 @@ function Game() {
     this.onReady = null;
 }
 
-Game.prototype = {
+tetwis.Game.prototype = {
 
     loadConfig: function() {
-        this.config = new Config(this).load();
+        this.config = new tetwis.Config(this).load();
         return this;
     },
 
@@ -38,9 +38,9 @@ Game.prototype = {
     launch: function() {
         log("Game: launch");
         $('#loading-state').text("Connecting to server...");
-        this.mp = new MessageParser(this);
+        this.mp = new tetwis.MessageParser(this);
 
-        this.socket = new Socket(this, this.mp);
+        this.socket = new tetwis.Socket(this, this.mp);
         this.socket.init();
 
         return this;
@@ -61,12 +61,12 @@ Game.prototype = {
         log("Game: init");
         if (this.initialized == false)
         {
-            this.events = new Events(this);
+            this.events = new tetwis.Events(this);
             this.events.bindAll();
 
-            this.map = new Map(this, data);
+            this.map = new tetwis.Map(this, data);
 
-            this.displayer = new Displayer(this.map, this.displayDelay);
+            this.displayer = new tetwis.Displayer(this.map, this.displayDelay);
 
             this.onReady.call();
 

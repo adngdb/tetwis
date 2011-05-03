@@ -1,9 +1,9 @@
-function Events(game) {
+tetwis.Events = function(game) {
     this.game = game;
     this.bound = $.browser == 'msie' ? '#map' : window;
 }
 
-Events.prototype = {
+tetwis.Events.prototype = {
     bindAll: function() {
         this.bindKeys();
         return this;
