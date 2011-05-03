@@ -1,15 +1,18 @@
-tetwis.Socket = function(game, mp) {
-    this.game = game;
-    this.mp = mp; // MessageParser
-
+tetwis.Socket = function() {
     this._socket = null;
 
-    this.host = game.config.server.host;
-    this.port = game.config.server.port;
+    this.host = tetwis.config.server.host;
+    this.port = tetwis.config.server.port;
+
+    this.callback = null;
 }
 
 tetwis.Socket.prototype = {
-    init: function() {
+
+    init: function(callback) {
+        tetwis.log("Trying to open a connection to the server... ");
+
+		this.callback = callback;
 
         this._socket = new io.Socket(this.host, { port: this.port, rememberTransport: false });
         this._socket.on('connect', this._onOpen.bind(this));
@@ -18,21 +21,23 @@ tetwis.Socket.prototype = {
 
         this._socket.connect();
 
-        log("Socket initialized");
+        tetwis.log("Socket initialized");
+        return this;
     },
 
     send: function(msg) {
         this._socket.send(msg);
+        return this;
     },
 
     _onOpen: function() {
-        log("Socket: onOpen");
-        $('#loading-state').text("Connected. Receiving data...");
+        tetwis.log("Socket: onOpen");
+        this.callback();
     },
 
     _onMessage: function(msg) {
         //log("Socket: onMessage = " + msg);
-        this.mp.parse(msg);
+        tetwis.mp.parse(msg);
     },
 
     _onClose: function() {
@@ -40,4 +45,5 @@ tetwis.Socket.prototype = {
         // TODO
         // Display: cannot connect to server
     },
+
 }
