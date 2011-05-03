@@ -3,8 +3,8 @@
 		,loaded = false
 		;
 
-	load("js/libs/jquery.min.js", "js/tetwis.js")
-	.then("js/libs/jquery.tmpl.js")
+	load("js/libs/jquery.min.js", "js/core/displayer.js")
+	.then("js/libs/jquery.tmpl.js", "js/tetwis.js")
 	.thenRun(function() {
 		$.get('templates/login.html', function(data) {
 			$.tmpl(data).appendTo('#content');
