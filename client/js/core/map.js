@@ -5,9 +5,9 @@
 tetwis.Map = function(game, data) {
     this.game = game;
 
-    this.width = game.config.map.width;
-    this.height = game.config.map.height;
-    this.cellSize = game.config.map.cellSize;
+    this.width = tetwis.config.map.width;
+    this.height = tetwis.config.map.height;
+    this.cellSize = tetwis.config.map.cellSize;
 
     this.cells = data.cells;
     this.bricks = data.bricks;
