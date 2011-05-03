@@ -47,7 +47,7 @@
 	function next() {
 		if (user != null && loaded) {
 			tetwis.user = user;
-			load("js/main.js");
+			load("js/init.js");
 		}
 	}
 })();
