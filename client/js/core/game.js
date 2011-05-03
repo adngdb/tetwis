@@ -8,21 +8,13 @@
 tetwis.Game = function() {
     this.initialized = false;
 
-    this.config = null;
-
     this.events = null;
-    this.socket = null;
-    this.mp = null;
-    this.displayer = null;
-
     this.map = null;
 
     this.score = 0;
     this.level = 0;
 
-    this.displayDelay = 100;
-
-    this.onReady = null;
+    this.displayDelay = 100; // TODO move to the config file (see Displayer)
 }
 
 tetwis.Game.prototype = {
@@ -38,10 +30,6 @@ tetwis.Game.prototype = {
             this.events.bindAll();
 
             this.map = new tetwis.Map(this, data);
-
-            this.displayer = new tetwis.Displayer(this.map, this.displayDelay);
-
-            this.onReady.call();
 
             this.displayer.start();
 
