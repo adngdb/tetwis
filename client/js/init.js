@@ -2,7 +2,7 @@
 	// Create the Engine instance
 	tetwis.engine = new tetwis.Engine().init();
 
-	// Load the config
+	// Start the engine
 	tetwis.engine.loadConfig();
 
 	// Connect to the server
