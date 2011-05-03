@@ -59,7 +59,7 @@ tetwis.Engine.prototype = {
 	},
 
 	launchNewGame: function() {
-		this.game = new tetwis.Game().init();
+		this.game = new tetwis.Game();
 
 		// loading the game template
 		$.get('templates/game.html', function(data) {
