@@ -6,7 +6,7 @@
  * @constructor
  */
 tetwis.Displayer = function() {
-	this.mapElt = $('#map');
+	this.mapElt = null;
 	this.contentElt = $('#content');
 
     this.delay = 100; // TODO move to the config file (see Game)
@@ -23,6 +23,7 @@ tetwis.Displayer.prototype = {
 	},
 
     start: function() {
+		this.mapElt = $('#map');
         this.intervalId = window.setInterval(this.display.bind(this), this.delay);
         return this;
     },
