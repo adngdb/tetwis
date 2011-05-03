@@ -1,3 +1,10 @@
+/**
+ * Class MessageBuilder
+ * Create messages to send to the server in a simple way.
+ *
+ * @author Adrian Gaudebert - adrian@gaudebert.fr
+ * @constructor
+ */
 tetwis.MessageBuilder = function() {
 }
 
@@ -79,6 +86,7 @@ tetwis.MessageBuilder.prototype = {
         return this.createAction("join-game", data);
     },
 
+	// TODO change to use the better protocol
     getChangeBrick: function(action) {
         return JSON.stringify({
             method: "do",
