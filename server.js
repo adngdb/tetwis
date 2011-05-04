@@ -6,6 +6,7 @@ var sys             = require("util"),
     mime            = require("mime"),
     io              = require("socket.io"),
 
+    Client          = require("./lib/client.js"),
     Engine          = require("./lib/engine.js");
 
 sys.log("Starting server... ");
