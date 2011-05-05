@@ -67,7 +67,13 @@ tetwis.Engine.prototype = {
 	 */
 	onConnectionOpened: function() {
 		this.socket.send( this.messageBuilder.createAuthenticationLogin( tetwis.user ) );
-		this.launchNewGame();
+		this.getGamesList();
+
+		//this.launchNewGame();
+	},
+
+	getGamesList: function() {
+		this.socket.send( this.messageBuilder.createGamesListQuery() );
 	},
 
 	/**
