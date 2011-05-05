@@ -84,6 +84,10 @@ tetwis.MessageBuilder.prototype = {
 		return this.createQuery('data', { data_name: 'games-list' });
 	},
 
+	createCreateGameAction: function() {
+        return this.createAction("create-game", {});
+	},
+
     /**
      * Create an action message to join a game.
      * @param gameId Identifier of the game to join.
