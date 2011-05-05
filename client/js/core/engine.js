@@ -12,6 +12,8 @@ tetwis.Engine = function() {
     this.socket = null;
     this.messageParser = null;
     this.messageBuilder = null;
+
+    this.games = [];
 };
 
 tetwis.Engine.prototype = {
@@ -76,12 +78,34 @@ tetwis.Engine.prototype = {
 		this.socket.send( this.messageBuilder.createGamesListQuery() );
 	},
 
+	setGamesList: function(gamesList) {
+		this.games = gamesList;
+		this.launchGamesList();
+	},
+
+	launchGamesList: function() {
+		var gamesList = { games: this.games };
+		tetwis.displayer.displayTemplate('templates/games-list.html', gamesList, function() {
+			$('#create-game').click(function() {
+				tetwis.engine.createGame();
+			});
+		});
+	    return this;
+	},
+
+	createGame: function() {
+		this.socket.send( this.messageBuilder.createCreateGameAction() );
+		this.launchNewGame();
+	},
+
 	/**
 	 * Creates a new game and launches it.
 	 * @return this.
 	 */
 	launchNewGame: function() {
-		tetwis.displayer.setState("Receiving data...");
+		tetwis.displayer.displayTemplate('templates/loading.html', null, function(data) {
+			tetwis.displayer.setState("Receiving data...");
+		});
 		this.game = new tetwis.Game();
 	    return this;
 	},
