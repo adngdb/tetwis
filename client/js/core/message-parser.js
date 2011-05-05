@@ -68,12 +68,15 @@ tetwis.MessageParser.prototype = {
                 this.parseDeleteData(data.object, data.object_data);
                 break;
         }
-        this.gameEngine.invalidate();
         return this;
     },
 
     parseNewData: function(object, data) {
         switch (object) {
+            case "games-list":
+				tetwis.log("Games list received: " + data);
+                this.engine.setGamesList(data);
+                break;
             case "Game":
                 this.gameEngine.world.gameData(data);
                 break;
