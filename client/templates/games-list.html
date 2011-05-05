@@ -1,13 +1,13 @@
+{{if games.length}}
 <ul>
-	{{each Game}}
+	{{each games}}
 	<li>
-		<h3>{$Name}</h3>
-		<p>{{each(i, player) Players}}
-			{{if i != 1 }}
-			,
-			{{/if}}
-			${player}
-		{{/each}}</p>
+		<h3>{$id}</h3>
+		<p>Playing: {$players}, awaitings: {$awaiting}, score: {$score}, level: {$level}</p>
 	</li>
 	{{/each}}
 </ul>
+{{else}}
+<p>There is currently no game running on the server...</p>
+<p class="center"><button id="create-game">Create one!</button></p>
+{{/if}}
