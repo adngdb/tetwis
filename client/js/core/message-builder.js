@@ -43,8 +43,9 @@ tetwis.MessageBuilder.prototype = {
      * @return JSON message to send.
      */
     createQuery: function(responseMethod, responseData) {
-        var data = responseData;
-        data.method = responseMethod;
+        var data = {};
+        data.response_type = responseMethod;
+        data.query_data = responseData;
         return this.createMessage("query", data);
     },
 
@@ -75,6 +76,14 @@ tetwis.MessageBuilder.prototype = {
         return this.createLogin(login, data);
     },
 
+	/**
+	 * Create a query to ask for the games list.
+     * @return JSON message to send.
+     */
+    createGamesListQuery: function() {
+		return this.createQuery('data', { data_name: 'games-list' });
+	},
+
     /**
      * Create an action message to join a game.
      * @param gameId Identifier of the game to join.
@@ -86,26 +95,22 @@ tetwis.MessageBuilder.prototype = {
         return this.createAction("join-game", data);
     },
 
-	// TODO change to use the better protocol
+	// TODO: change method name for consistency
     getChangeBrick: function(action) {
 		return this.createAction(action, {});
-        /*turn JSON.stringify({
-            method: "do",
-            object: "brick",
-            data: {
-                action: action
-            },
-        });*/
     },
 
+	// TODO: change method name for consistency
     getMoveLeft: function() {
         return this.getChangeBrick("move-left");
     },
 
+	// TODO: change method name for consistency
     getMoveRight: function() {
         return this.getChangeBrick("move-right");
     },
 
+	// TODO: change method name for consistency
     getChangeShape: function() {
         return this.getChangeBrick("change-shape");
     },
