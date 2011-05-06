@@ -89,12 +89,24 @@ tetwis.Engine.prototype = {
 			$('#create-game').click(function() {
 				tetwis.engine.createGame();
 			});
+			$('.join-game').click(function() {
+				var gameId = $(this).attr('id');
+				gameId = gameId.split('-');
+				gameId = gameId[1];
+
+				tetwis.engine.joinGame(gameId);
+			});
 		});
 	    return this;
 	},
 
 	createGame: function() {
 		this.socket.send( this.messageBuilder.createCreateGameAction() );
+		this.launchNewGame();
+	},
+
+	joinGame: function(gameId) {
+		this.socket.send( this.messageBuilder.createJoinGameAction(gameId) );
 		this.launchNewGame();
 	},
 
