@@ -1,14 +1,16 @@
-{{if games.length}}
-<ul>
-	{{each games}}
-	<li>
-		<button class="join-game" id="game-${id}">Join this game!</button>
-		<h3>${id}</h3>
-		<p>Playing: ${players}, awaitings: ${awaiting}, score: ${score}, level: ${level}</p>
-	</li>
-	{{/each}}
-</ul>
-{{else}}
-<p>There is currently no game running on the server...</p>
-<p class="center"><button id="create-game">Create one!</button></p>
-{{/if}}
+<div class="games-list">
+	{{if games.length}}
+	<ul>
+		{{each games}}
+		<li>
+			<button class="join-game" id="game-${id}">Join this game!</button>
+			<h3>${id}</h3>
+			<p>Playing: ${players}, awaitings: ${awaiting}, score: ${score}, level: ${level}</p>
+		</li>
+		{{/each}}
+	</ul>
+	{{else}}
+	<p>There is currently no game running on the server...</p>
+	<p class="center"><button id="create-game">Create one!</button></p>
+	{{/if}}
+</div>
