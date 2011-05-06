@@ -70,19 +70,27 @@ tetwis.Engine.prototype = {
 	onConnectionOpened: function() {
 		this.socket.send( this.messageBuilder.createAuthenticationLogin( tetwis.user ) );
 		this.getGamesList();
-
-		//this.launchNewGame();
 	},
 
+	/**
+	 * Asks the server for the list of all the existing games.
+	 */
 	getGamesList: function() {
 		this.socket.send( this.messageBuilder.createGamesListQuery() );
 	},
 
+	/**
+	 * Set the list of the existing games from the server, and displays it.
+	 * @param gamesList Array containing the games, coming from the server.
+	 */
 	setGamesList: function(gamesList) {
 		this.games = gamesList;
 		this.launchGamesList();
 	},
 
+	/**
+	 * Displays the games list and binds the actions.
+	 */
 	launchGamesList: function() {
 		var gamesList = { games: this.games };
 		tetwis.displayer.displayTemplate('templates/games-list.html', gamesList, function() {
@@ -100,11 +108,18 @@ tetwis.Engine.prototype = {
 	    return this;
 	},
 
+	/**
+	 * Asks the server to create a new game and join it.
+	 */
 	createGame: function() {
 		this.socket.send( this.messageBuilder.createCreateGameAction() );
 		this.launchNewGame();
 	},
 
+	/**
+	 * Asks the server to join an existing new game.
+	 * @param gameId ID of the game to join.
+	 */
 	joinGame: function(gameId) {
 		this.socket.send( this.messageBuilder.createJoinGameAction(gameId) );
 		this.launchNewGame();
@@ -115,9 +130,9 @@ tetwis.Engine.prototype = {
 	 * @return this.
 	 */
 	launchNewGame: function() {
-		tetwis.displayer.displayTemplate('templates/loading.html', null, function(data) {
+		/*tetwis.displayer.displayTemplate('templates/loading.html', null, function(data) {
 			tetwis.displayer.setState("Receiving data...");
-		});
+		});*/
 		this.game = new tetwis.Game();
 	    return this;
 	},
