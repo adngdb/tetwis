@@ -58,7 +58,7 @@ tetwis.MessageBuilder.prototype = {
     createAction: function(name, data) {
         var actionData = {};
         actionData.name = name;
-        actionData.data = data;
+        actionData.action_data = data;
         return this.createMessage("action", actionData);
     },
 
