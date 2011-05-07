@@ -4,8 +4,12 @@
 		{{each games}}
 		<li>
 			<button class="join-game" id="game-${id}">Join this game!</button>
-			<h3>${id}</h3>
-			<p>Playing: ${players}, awaitings: ${awaiting}, score: ${score}, level: ${level}</p>
+			<p>
+				Level ${level}, Score = ${score}
+			<p>
+			</p>
+				Currently ${players} players and ${awaitings} awaitings.
+			</p>
 		</li>
 		{{/each}}
 	</ul>
