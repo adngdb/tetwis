@@ -99,6 +99,10 @@ tetwis.MessageBuilder.prototype = {
         return this.createAction("join-game", data);
     },
 
+    createQueue: function(queue) {
+		return this.createMessage("queue", queue);
+	},
+
 	// TODO: change method name for consistency
     getChangeBrick: function(action) {
 		return this.createAction(action, {});
