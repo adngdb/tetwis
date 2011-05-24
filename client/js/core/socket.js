@@ -5,6 +5,9 @@ tetwis.Socket = function() {
     this.port = tetwis.config.server.port;
 
     this.callback = null;
+
+    this._queue = [];
+    this.delay = 50; // (ms)
 }
 
 tetwis.Socket.prototype = {
@@ -21,12 +24,14 @@ tetwis.Socket.prototype = {
 
         this._socket.connect();
 
+        setInterval(this._sendAllMessages.bind(this), this.delay);
+
         tetwis.log("Socket initialized");
         return this;
     },
 
     send: function(msg) {
-        this._socket.send(msg);
+        this._queue.push(msg);
         return this;
     },
 
@@ -45,5 +50,12 @@ tetwis.Socket.prototype = {
         // TODO
         // Display: cannot connect to server
     },
+
+    _sendAllMessages: function() {
+		if (this._queue.length > 0) {
+			this._socket.send( tetwis.mb.createQueue(this._queue) );
+			this._queue = [];
+		}
+	},
 
 }
