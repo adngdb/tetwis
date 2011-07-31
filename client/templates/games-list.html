@@ -1,0 +1,23 @@
+<div class="games-list">
+	{{if games.length}}
+
+	<p class="center"><button id="create-game">Create a new game</button></p>
+
+	<ul>
+		{{each games}}
+		<li>
+			<button class="join-game" id="game-${id}">Join this game!</button>
+			<p>
+				Level ${level}, Score = ${score}
+			<p>
+			</p>
+				Currently ${players} players and ${awaitings} awaitings.
+			</p>
+		</li>
+		{{/each}}
+	</ul>
+	{{else}}
+	<p>There is currently no game running on the server...</p>
+	<p class="center"><button id="create-game">Create one!</button></p>
+	{{/if}}
+</div>

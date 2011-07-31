@@ -1,15 +1,21 @@
-function Socket(game, mp) {
-    this.game = game;
-    this.mp = mp; // MessageParser
-
+tetwis.Socket = function() {
     this._socket = null;
 
-    this.host = game.config.server.host;
-    this.port = game.config.server.port;
+    this.host = tetwis.config.server.host;
+    this.port = tetwis.config.server.port;
+
+    this.callback = null;
+
+    this._queue = [];
+    this.delay = 50; // (ms)
 }
 
-Socket.prototype = {
-    init: function() {
+tetwis.Socket.prototype = {
+
+    init: function(callback) {
+        tetwis.log("Trying to open a connection to the server... ");
+
+		this.callback = callback;
 
         this._socket = new io.Socket(this.host, { port: this.port, rememberTransport: false });
         this._socket.on('connect', this._onOpen.bind(this));
@@ -18,23 +24,25 @@ Socket.prototype = {
 
         this._socket.connect();
 
-        this.mp = new MessageParser(this.game);
+        setInterval(this._sendAllMessages.bind(this), this.delay);
 
-        log("Socket initialized");
+        tetwis.log("Socket initialized");
+        return this;
     },
 
     send: function(msg) {
-        this._socket.send(msg);
+        this._queue.push(msg);
+        return this;
     },
 
     _onOpen: function() {
-        log("Socket: onOpen");
-        $('#loading-state').text("Connected. Receiving data...");
+        tetwis.log("Socket: onOpen");
+        this.callback();
     },
 
     _onMessage: function(msg) {
         //log("Socket: onMessage = " + msg);
-        this.mp.parse(msg);
+        tetwis.mp.parse(msg);
     },
 
     _onClose: function() {
@@ -42,4 +50,12 @@ Socket.prototype = {
         // TODO
         // Display: cannot connect to server
     },
+
+    _sendAllMessages: function() {
+		if (this._queue.length > 0) {
+			this._socket.send( tetwis.mb.createQueue(this._queue) );
+			this._queue = [];
+		}
+	},
+
 }

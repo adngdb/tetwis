@@ -5,72 +5,49 @@
  * @author Adrian Gaudebert - adrian@gaudebert.fr
  * @constructor
  */
-function Game() {
+tetwis.Game = function() {
     this.initialized = false;
 
-    this.config = null;
-
     this.events = null;
-    this.socket = null;
-    this.mp = null;
-    this.displayer = null;
-
     this.map = null;
 
     this.score = 0;
     this.level = 0;
 
-    this.displayDelay = 100;
-
-    this.onReady = null;
+    this.displayDelay = 100; // TODO move to the config file (see Displayer)
 }
 
-Game.prototype = {
-
-    loadConfig: function() {
-        this.config = new Config(this).load();
-        return this;
-    },
-
-    /**
-     * Launches the game: connects to the server and waits for data.
-     */
-    launch: function() {
-        log("Game: launch");
-        $('#loading-state').text("Connecting to server...");
-        this.mp = new MessageParser(this);
-
-        this.socket = new Socket(this, this.mp);
-        this.socket.init();
-
-        return this;
-    },
-
-    /**
-     * Sets a callback function when the game is ready.
-     * @param callback Function to call.
-     */
-    ready: function(callback) {
-        this.onReady = callback;
-    },
+tetwis.Game.prototype = {
 
     /**
      * Initializes the Game object
      */
     init: function(data) {
-        log("Game: init");
+        tetwis.log("Game: init");
         if (this.initialized == false)
         {
-            this.events = new Events(this);
+            this.events = new tetwis.Events(this);
             this.events.bindAll();
 
-            this.map = new Map(this, data);
+            this.map = new tetwis.Map(data);
 
-            this.displayer = new Displayer(this.map, this.displayDelay);
+			// loading the game template
+			tetwis.displayer.displayTemplate('templates/game.html', null, function() {
+				var cellSize = this.map.cellSize,
+					height = this.map.height * cellSize,
+					width  = this.map.width * cellSize;
 
-            this.onReady.call();
+				$('#map').width(width).height(height);
+				$('#players').width(width);
 
-            this.displayer.start();
+				for (var i = 0; i < tetwis.config.players.number; i++) {
+					$('#p'+(i+1)).css('color', tetwis.config.players.colors[i]);
+				}
+
+				tetwis.displayer.setMap(this.map);
+				tetwis.displayer.start();
+
+			}.bind(this));
 
             this.initialized = true;
         }
@@ -83,7 +60,6 @@ Game.prototype = {
      */
     updateMap: function(data) {
         this.map.update(data);
-        //~ this.display();
     },
 
     updatePlayersInfo: function(data) {
@@ -92,38 +68,10 @@ Game.prototype = {
     },
 
     /**
-     * Displays the game
-     */
-    display: function() {
-        var mapElt = $('#map'),
-            cellSize = this.map.cellSize,
-            cellSizeCSS = cellSize - 1;
-
-        // Reset current map
-        mapElt.empty();
-
-        // Displaying map
-        for (var i = 0, size = this.map.cells.length; i < size; i++) {
-            var cell = this.map.cells[i];
-            mapElt.append('<div class="cell" style="top: '+ cell.y * cellSize +'px; left: '+ cell.x * cellSize +'px; background-color: '+ cell.color +'; width: '+cellSizeCSS+'px; height: '+cellSizeCSS+'px;"></div>');
-        }
-
-        for (var k = 0, nb = this.map.bricks.length; k < nb; k++) {
-            var currentBrick = this.map.bricks[k];
-            for (var i = 0, size = currentBrick.cells.length; i < size; i++) {
-                var cell = currentBrick.cells[i];
-                mapElt.append('<div class="cell" style="top: '+ (currentBrick.y + cell.y) * cellSize +'px; left: '+ (currentBrick.x + cell.x) * cellSize +'px; background-color: '+ cell.color +'; width: '+cellSizeCSS+'px; height: '+cellSizeCSS+'px;"></div>');
-            }
-        }
-
-        return this;
-    },
-
-    /**
      * The game is lost, tell so to the player and stop it
      */
     gameOver: function() {
-        log('Game OVER!');
+        tetwis.log('Game OVER!');
         return this;
     },
 
@@ -132,28 +80,28 @@ Game.prototype = {
      * @param msg String containing the message to send.
      */
     send: function(msg) {
-        this.socket.send(msg);
+        tetwis.socket.send(msg);
     },
 
     /**
      * Asks the server to move our brick to the left.
      */
     moveLeft: function() {
-        this.send( this.mp.getMoveLeft() );
+        this.send( tetwis.mb.getMoveLeft() );
     },
 
     /**
      * Asks the server to move our brick to the right.
      */
     moveRight: function() {
-        this.send( this.mp.getMoveRight() );
+        this.send( tetwis.mb.getMoveRight() );
     },
 
     /**
      * Asks the server to change the shape of our brick.
      */
     changeShape: function() {
-        this.send( this.mp.getChangeShape() );
+        this.send( tetwis.mb.getChangeShape() );
     },
 }
 

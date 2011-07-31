@@ -2,19 +2,59 @@
  * Main.css
  **********************************************************************/
 
-#content {
-    width: 400px;
+button {
+	cursor: pointer;
+}
+
+.clear {
+	clear: both;
+}
+
+#body {
+	margin: auto;
+	width: 900px;
+}
+
+#information {
+    width: 290px;
     float: right;
 }
-    #content h1,
-    #content h2 {
+    #information h1,
+    #information h2 {
         margin: 0;
         text-align: center;
     }
-    #content h1 {
-        font-size: 6.5em;
+    #information h1 {
+        font-size: 4.5em;
         margin: 0;
     }
+
+#content {
+	text-align: center;
+}
+	#content .games-list {
+		width: 600px;
+	}
+		#content .games-list ul {
+			margin: 0;
+			padding: 0;
+		}
+			#content .games-list ul li {
+				background-color: #ff9;
+				border: 1px solid #f90;
+				border-radius: 3px;
+				list-style-type: none;
+				list-style-position: outside;
+				padding: 5px 10px;
+				margin: 5px 0;
+			}
+				#content .games-list ul li p {
+					margin: 3px 0;
+				}
+		#content .games-list .join-game {
+			float: right;
+			padding: 9px 18px;
+		}
 
 #players {
     border: 1px solid black;
