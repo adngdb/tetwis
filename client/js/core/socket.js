@@ -15,14 +15,12 @@ tetwis.Socket.prototype = {
     init: function(callback) {
         tetwis.log("Trying to open a connection to the server... ");
 
-		this.callback = callback;
+    this.callback = callback;
 
-        this._socket = new io.Socket(this.host, { port: this.port, rememberTransport: false });
+        this._socket = new io.connect(this.host, { port: this.port, rememberTransport: false });
         this._socket.on('connect', this._onOpen.bind(this));
         this._socket.on('message', this._onMessage.bind(this));
         this._socket.on('disconnect', this._onClose.bind(this));
-
-        this._socket.connect();
 
         setInterval(this._sendAllMessages.bind(this), this.delay);
 
@@ -52,10 +50,10 @@ tetwis.Socket.prototype = {
     },
 
     _sendAllMessages: function() {
-		if (this._queue.length > 0) {
-			this._socket.send( tetwis.mb.createQueue(this._queue) );
-			this._queue = [];
-		}
-	},
+    if (this._queue.length > 0) {
+      this._socket.send( tetwis.mb.createQueue(this._queue) );
+      this._queue = [];
+    }
+  },
 
 }

@@ -1,4 +1,4 @@
-var sys             = require("util"),
+var util             = require("util"),
     libpath         = require("path"),
     http            = require("http"),
     fs              = require("fs"),
@@ -9,7 +9,7 @@ var sys             = require("util"),
     Client          = require("./lib/client.js"),
     Engine          = require("./lib/engine.js");
 
-sys.log("Starting server... ");
+util.log("Starting server... ");
 
 var port = 9309;
 
@@ -56,15 +56,14 @@ var server = http.createServer(function (request, response) {
 
 server.listen(port);
 
-var socket = io.listen(server);
+var io = io.listen(server);
 
 var engine = new Engine(server).init();
 
-//var game = new Game(server).init().start();
-//var parser = new MessageParser(game);
-
-socket.on('connection', function(conn){
+io.sockets.on('connection', function(conn){
+    //~ util.log("COUCOU");
+    //~ util.log(util.inspect(conn));
     new Client(conn, engine).init();
 });
 
-sys.log("Server created. Listening on port " + port + ". ");
+util.log("Server created. Listening on port " + port + ". ");
