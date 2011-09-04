@@ -2,23 +2,43 @@
  * Main.css
  **********************************************************************/
 
+/*
+div, header, section, footer, aside {
+    border: 1px solid red;
+}
+*/
+
 button {
-	cursor: pointer;
+    cursor: pointer;
 }
 
 .clear {
-	clear: both;
+    clear: both;
 }
 
 #body {
-	margin: auto;
-	width: 900px;
+    font-size: 16px;
+    margin: auto;
+    width: 960px;
 }
 
+header,
 #information {
-    width: 290px;
     float: right;
+    margin-bottom: 20px;
+    text-align: center;
+    width: 350px;
 }
+
+header h1 {
+    font-size: 5.5em;
+    font-weight: bold;
+}
+header h2 {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
     #information h1,
     #information h2 {
         margin: 0;
@@ -30,31 +50,34 @@ button {
     }
 
 #content {
-	text-align: center;
+    float: left;
+    min-height: 300px;
+    text-align: center;
+    width: 602px;
 }
-	#content .games-list {
-		width: 600px;
-	}
-		#content .games-list ul {
-			margin: 0;
-			padding: 0;
-		}
-			#content .games-list ul li {
-				background-color: #ff9;
-				border: 1px solid #f90;
-				border-radius: 3px;
-				list-style-type: none;
-				list-style-position: outside;
-				padding: 5px 10px;
-				margin: 5px 0;
-			}
-				#content .games-list ul li p {
-					margin: 3px 0;
-				}
-		#content .games-list .join-game {
-			float: right;
-			padding: 9px 18px;
-		}
+    #content .games-list {
+        width: 100%;
+    }
+        #content .games-list ul {
+            margin: 0;
+            padding: 0;
+        }
+            #content .games-list ul li {
+                background-color: #ff9;
+                border: 1px solid #f90;
+                border-radius: 3px;
+                list-style-type: none;
+                list-style-position: outside;
+                padding: 5px 10px;
+                margin: 5px 0;
+            }
+                #content .games-list ul li p {
+                    margin: 3px 0;
+                }
+        #content .games-list .join-game {
+            float: right;
+            padding: 9px 18px;
+        }
 
 #players {
     border: 1px solid black;
@@ -73,7 +96,7 @@ button {
     border: 1px solid black;
     position: relative;
     text-align: center;
-    width: 600px;
+    width: 100%;
 }
     #map #loader {
         margin: 0;

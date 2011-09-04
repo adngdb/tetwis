@@ -3,41 +3,42 @@
     <head>
         <title>Tetwis ! JavaScript powered game</title>
 
+        <link rel="stylesheet" type="text/css" href="css/reset.css" />
         <link rel="stylesheet" type="text/css" href="css/main.css" />
     </head>
 
     <body>
-		<div id="body">
-			<div id="information">
-				<header>
-					<h1>TetWis</h1>
-					<h2>Multiplayer Web Tetris Game</h2>
-				</header>
+        <div id="body">
+            <header>
+                <h1>TetWis</h1>
+                <h2>Multiplayer Web Tetris Game</h2>
+            </header>
 
-				<div id="player-state">
-					<p>
-						You are <span id="whoami">not connected</span>.
-					</p>
-				</div>
-				<div id="game-state">
-					<p>
-						Ingame: <span id="ingame-number">0</span>
-					</p>
-					<p>
-						Awaiting: <span id="awaiting-number">0</span>
-					</p>
-				</div>
-			</div>
+            <section id="content">
+                <div class="login">
+                    <img src="images/loader.gif" id="loader" alt="Loading..." />
+                    <p id="loading-state">Loading...</p>
+                </div>
+            </section>
 
-			<div id="content">
-				<div class="login">
-					<img src="images/loader.gif" id="loader" alt="Loading..." />
-					<p id="loading-state">Loading...</p>
-				</div>
-			</div>
+            <aside id="information">
+                <div id="player-state">
+                    <p>
+                        You are <span id="whoami">not connected</span>.
+                    </p>
+                </div>
+                <div id="game-state">
+                    <p>
+                        Ingame: <span id="ingame-number">0</span>
+                    </p>
+                    <p>
+                        Awaiting: <span id="awaiting-number">0</span>
+                    </p>
+                </div>
+            </aside>
 
-			<div class="clear"></div>
-		</div>
+            <div class="clear"></div>
+        </div>
 
         <footer>
             <p>
@@ -49,27 +50,8 @@
 
         <ul id="log"></ul>
 
-        <!--<script src="http://cdn.socket.io/stable/socket.io.js"></script>-->
-
         <script>var tetwis = {};</script>
         <script src="js/libs/load.js"></script>
         <script src="js/login.js"></script>
-
-<!--
-        <script src="js/libs/jquery.min.js"></script>
-        <script src="js/libs/jquery.timers.js"></script>
-        <script src="js/libs/json2.js"></script>
-        <script src="js/libs/socket.io.min.js"></script>
-        <script src="js/core/config.js"></script>
-        <script src="js/core/cell.js"></script>
-        <script src="js/core/brick.js"></script>
-        <script src="js/core/map.js"></script>
-        <script src="js/core/displayer.js"></script>
-        <script src="js/core/events.js"></script>
-        <script src="js/core/message-parser.js"></script>
-        <script src="js/core/socket.js"></script>
-        <script src="js/core/game.js"></script>
-        <script src="js/main.js"></script>
--->
     </body>
 </html>
